@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.scss";
-import RegisterUser from "./components/user/register-user.component";
+import SideBar from "./components/side-navbar/side-navbar.component";
 
 function App() {
   return (
     <div className="App">
-      <RegisterUser></RegisterUser>
+      <SideBar></SideBar>
     </div>
   );
 }
