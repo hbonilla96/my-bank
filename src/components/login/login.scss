@@ -1,0 +1,15 @@
+.card-box {
+  width: 40%;
+  height: 300px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.border-none {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: unset;
+}

@@ -1,6 +1,12 @@
 @import "bootstrap/scss/bootstrap";
 @import "./components/landing-page/landing-page.scss";
+@import "./components/navbar/navbar.scss";
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+@import "./components//login/login.scss";
+
+body {
+  min-height: 100vh;
+}
 
 .sidenav---sidenav---_2tBP {
   background: #347474 !important;

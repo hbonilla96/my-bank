@@ -1,3 +1,31 @@
+$blue1: #35495e;
+$blue2: #347474;
+$blue3: #63b7af;
+$blue4: #dff6f0;
+
+$white: white;
+
 .svg-width {
   width: 2em !important;
+}
+
+.titles {
+  color: $blue !important;
+}
+
+.white-text {
+  color: white;
+}
+
+.content-wrapper {
+  min-height: 100vh;
+  background: transparent url("/img/image-1.png");
+  display: flex;
+  align-items: center;
+}
+
+.card-box {
+  width: 40%;
+  height: 300px;
+  background-color: white;
 }
