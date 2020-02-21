@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.scss";
-import SideBar from "./components/side-navbar/side-navbar.component";
+import LandingPage from "./components/landing-page/landing-page.component";
 
 function App() {
   return (
     <div className="App">
-      <SideBar></SideBar>
+      <LandingPage></LandingPage>
     </div>
   );
 }

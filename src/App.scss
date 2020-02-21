@@ -1,3 +1,15 @@
+@import "bootstrap/scss/bootstrap";
+@import "./components/landing-page/landing-page.scss";
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+
 .sidenav---sidenav---_2tBP {
   background: #347474 !important;
+}
+
+a {
+  color: black;
+}
+
+.main-font {
+  font-family: "Playfair Display", serif;
 }
