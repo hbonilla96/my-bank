@@ -10,7 +10,7 @@ $white: white;
 }
 
 .titles {
-  color: $blue !important;
+  color: #ff8a6f !important;
 }
 
 .white-text {
@@ -18,14 +18,19 @@ $white: white;
 }
 
 .content-wrapper {
-  min-height: 100vh;
-  background: transparent url("/img/image-1.png");
+  min-height: 89vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .card-box {
   width: 40%;
   height: 300px;
   background-color: white;
+}
+
+img {
+  min-width: 50vw;
+  max-width: 58.75rem;
 }

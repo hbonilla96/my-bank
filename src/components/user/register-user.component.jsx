@@ -31,7 +31,7 @@ export default function RegisterUser() {
         <div className="card main-card">
           <div className="card-body">
             <div>
-              <h4>Register</h4>
+              <h4 className="main-font">Register</h4>
             </div>
             <form onSubmit={registerUser}>
               <div className="row">

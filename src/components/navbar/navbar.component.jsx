@@ -5,7 +5,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function CustomNavbar() {
   return (
-    <Navbar bg="light" expand="lg" className="nav">
+    <Navbar expand="lg" className="nav-container">
       <Navbar.Brand href="#home" className="main-font titles">
         Agnate Bank
       </Navbar.Brand>

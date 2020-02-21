@@ -5,7 +5,7 @@ import LandingPage from "./components/landing-page/landing-page.component";
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <CustomNavbar></CustomNavbar>
       <LandingPage></LandingPage>
     </div>

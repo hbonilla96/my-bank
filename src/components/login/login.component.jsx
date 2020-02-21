@@ -1,14 +1,15 @@
 import React from "react";
+import OrangeButton from "../orange-button/orange-button.component";
 
 export default function Login() {
   return (
-    <div className="container d-flex justify-content-end h-100">
+    <div className="container d-flex h-100 login-container">
       <div className="card-box">
         <div>
           <h1 className="main-font">Login</h1>
           <form>
             <div className="col-12 col-md-6">
-              <label>Name</label>
+              <label className="main-font">User name</label>
               <input
                 type="text"
                 className="form-control border-none"
@@ -16,15 +17,15 @@ export default function Login() {
               ></input>
             </div>
             <div className="col-12 col-md-6">
-              <label>Name</label>
+              <label className="main-font">Password</label>
               <input
                 type="text"
                 className="form-control border-none"
                 required
               ></input>
             </div>
-            <div>
-              <button>Login</button>
+            <div className="login-button">
+              <OrangeButton></OrangeButton>
             </div>
           </form>
         </div>
