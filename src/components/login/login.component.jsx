@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { user } from "../../services/loginService";
+import CustomLoader from "../loader/loader.component";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function login(event) {
     event.preventDefault();
+    setIsLoading(true);
     user({
       userId,
       password
@@ -14,6 +17,7 @@ export default function Login() {
       console.log(res);
       setUserId("");
       setPassword("");
+      setIsLoading(false);
     });
   }
 
@@ -36,7 +40,7 @@ export default function Login() {
             <div className="col-12 password-text">
               <label className="main-font">Password</label>
               <input
-                type="text"
+                type="password"
                 className="form-control border-none"
                 required
                 value={password}
@@ -46,6 +50,7 @@ export default function Login() {
             <div className="login-button">
               <button className="btn">Login</button>
             </div>
+            <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>
         </div>
       </div>
