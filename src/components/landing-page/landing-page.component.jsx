@@ -7,7 +7,11 @@ export default function LandingPage() {
       <div>
         <div className="row">
           <div className="col-sm-6 content-wrapper">
-            <img src="/img/image-1.png" alt="mainimage"></img>
+            <img
+              src="/img/image-1.png"
+              alt="mainimage"
+              className="landing-image"
+            ></img>
           </div>
           <div className="col-sm-6">
             <Login></Login>

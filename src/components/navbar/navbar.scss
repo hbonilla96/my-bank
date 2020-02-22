@@ -1,14 +1,19 @@
-$blue: #fe6845;
+$orange: #fe6845;
 
 .svg-width {
   width: 2em !important;
 }
 
 .titles {
-  color: $blue !important;
+  color: $orange !important;
 }
 
 .nav-container {
   height: 70px;
   background-color: #ffff;
+  z-index: 1000;
+}
+
+.black-text {
+  color: black !important;
 }
