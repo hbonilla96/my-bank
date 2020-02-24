@@ -22,7 +22,7 @@
 }
 
 .main-card {
-  width: 100%;
+  width: 64%;
 }
 
 @include media-breakpoint-up(md) {
@@ -33,4 +33,8 @@
 
 .label-padding {
   padding-top: 2%;
+}
+
+.error {
+  color: red;
 }

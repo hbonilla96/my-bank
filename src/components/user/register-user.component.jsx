@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { user } from "../../services/userService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import * as EmailValidator from "email-validator";
 
 export default function RegisterUser() {
   const [userId, setIdentification] = useState("");
@@ -9,6 +12,16 @@ export default function RegisterUser() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  let notify;
+
+  function onChangeEmail(email) {
+    setEmail(email);
+    if (!!EmailValidator.validate(email)) {
+      notify = toast("Incorrect email format.");
+    } else {
+      notify = toast("nel");
+    }
+  }
 
   function registerUser(event) {
     event.preventDefault();
@@ -62,7 +75,7 @@ export default function RegisterUser() {
             </div>
             <div className="row first-column">
               <div className="col-12 label-padding">
-                <label>Last name</label>
+                <label>Lastname</label>
                 <input
                   type="text"
                   className="form-control border-none"
@@ -87,14 +100,14 @@ export default function RegisterUser() {
                   type="text"
                   className="form-control border-none"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => onChangeEmail(e.target.value)}
                 ></input>
               </div>
 
               <div className="col-12 label-padding">
                 <label>Phone number</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control border-none"
                   value={phoneNumber}
                   onChange={e => setPhoneNumber(e.target.value)}
@@ -113,6 +126,11 @@ export default function RegisterUser() {
               </div>
             </div>
             <div className="register-button-container ">
+              <ToastContainer
+                autoDismiss
+                autoDismissTimeout={8000}
+                position={toast.POSITION.BOTTOM_RIGHT}
+              />
               <button type="submit" className="btn btn-register">
                 Register
               </button>{" "}

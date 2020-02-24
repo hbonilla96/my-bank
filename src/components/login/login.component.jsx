@@ -26,8 +26,10 @@ export default function Login() {
         }
       })
       .catch(error => {
-        notify = toast("Incorrect user or password.");
+        notify = toast("Incorrect username or password.");
         setIsLoading(false);
+        setUserId("");
+        setPassword("");
       });
   }
 
@@ -36,7 +38,7 @@ export default function Login() {
       <div className="card-box">
         <div>
           <h1 className="main-font">Online bank</h1>
-          <form onSubmit={login}>
+          <form onSubmit={(login, notify)}>
             <div className="col-12">
               <label className="main-font">User name</label>
               <input
@@ -61,7 +63,11 @@ export default function Login() {
               <button className="btn" onClick={notify}>
                 Login
               </button>
-              <ToastContainer autoDismiss autoDismissTimeout={8000} />
+              <ToastContainer
+                autoDismiss
+                autoDismissTimeout={8000}
+                position={toast.POSITION.BOTTOM_RIGHT}
+              />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>
