@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { user } from "../../services/loginService";
 import CustomLoader from "../loader/loader.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  let notify;
 
   function login(event) {
     event.preventDefault();
@@ -14,10 +17,11 @@ export default function Login() {
       userId,
       password
     }).then(res => {
-      console.log(res);
       setUserId("");
       setPassword("");
       setIsLoading(false);
+      notify = toast(res.data.username);
+      console.log(res.data.token);
     });
   }
 
@@ -48,7 +52,10 @@ export default function Login() {
               ></input>
             </div>
             <div className="login-button">
-              <button className="btn">Login</button>
+              <button className="btn" onClick={notify}>
+                Login
+              </button>
+              <ToastContainer autoDismiss autoDismissTimeout={6000} />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>

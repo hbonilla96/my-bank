@@ -29,22 +29,6 @@ $orange: #fe6845;
   justify-content: center;
 }
 
-.btn {
-  width: 90%;
-  background: none;
-  border: none;
-  background-color: #f6f6f6;
-  border-radius: 10px;
-  font-family: sans-serif;
-  padding: 7px;
-}
-
-.btn:hover {
-  background-color: $orange; /* Green */
-  color: white;
-  transition: 3s;
-}
-
 .password-text {
   margin-top: 20px;
 }

@@ -1,0 +1,36 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-register {
+  width: 41% !important;
+}
+
+.register-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.border-none {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: unset;
+}
+
+.main-card {
+  width: 100%;
+}
+
+@include media-breakpoint-up(md) {
+  .register-container {
+    min-height: 90vh;
+  }
+}
+
+.label-padding {
+  padding-top: 2%;
+}

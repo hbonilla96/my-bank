@@ -22,101 +22,102 @@ export default function RegisterUser() {
       phoneNumber
     }).then(res => {
       console.log(res);
+      setIdentification("");
+      setName("");
+      setLastName("");
+      setBirthDate("");
+      setEmail("");
+      setAddress("");
+      setPhoneNumber("");
     });
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="card main-card">
-          <div className="card-body">
-            <div>
-              <h4 className="main-font">Register</h4>
-            </div>
-            <form onSubmit={registerUser}>
-              <div className="row">
-                <div className="col-12 col-md-6">
-                  <label className="label-padding-left">Identification</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={userId}
-                    onChange={e => setIdentification(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-              <div className="row first-column">
-                <div className="col-12 col-md-6">
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                  ></input>
-                </div>
-                <div className="col-12 col-md-6">
-                  <label>Last name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-              <div className="row first-column">
-                <div className="col-12 col-md-6">
-                  <label>Birth date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    required
-                    value={birthDate}
-                    onChange={e => setBirthDate(e.target.value)}
-                  ></input>
-                </div>
-                <div className="col-12 col-md-6">
-                  <label>Email</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                  ></input>
-                </div>
-                <div className="col-12 col-md-6">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={address}
-                    onChange={e => setAddress(e.target.value)}
-                  ></input>
-                </div>
-                <div className="col-12 col-md-6">
-                  <label>Phone number</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    required
-                    value={phoneNumber}
-                    onChange={e => setPhoneNumber(e.target.value)}
-                  ></input>
-                </div>
-              </div>
-              <div>
-                <button type="submit" className="button">
-                  Register
-                </button>{" "}
-              </div>
-            </form>
+    <div className="container register-container">
+      <div className="card main-card">
+        <div className="card-body">
+          <div>
+            <h4 className="main-font">Register</h4>
           </div>
+          <form onSubmit={registerUser}>
+            <div className="row">
+              <div className="col-12 label-padding">
+                <label className="label-padding-left">Identification</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={userId}
+                  onChange={e => setIdentification(e.target.value)}
+                ></input>
+              </div>
+              <div className="col-12 label-padding">
+                <label>Name</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                ></input>
+              </div>
+            </div>
+            <div className="row first-column">
+              <div className="col-12 label-padding">
+                <label>Last name</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                ></input>
+              </div>
+              <div className="col-12 label-padding">
+                <label>Birth date</label>
+                <input
+                  type="date"
+                  className="form-control border-none"
+                  value={birthDate}
+                  onChange={e => setBirthDate(e.target.value)}
+                ></input>
+              </div>
+            </div>
+            <div className="row first-column">
+              <div className="col-12 label-padding">
+                <label>Email</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                ></input>
+              </div>
+
+              <div className="col-12 label-padding">
+                <label>Phone number</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
+                ></input>
+              </div>
+            </div>
+            <div className="row first-column">
+              <div className="col-12 label-padding">
+                <label>Address</label>
+                <textarea
+                  type="text"
+                  className="form-control border-none"
+                  value={address}
+                  onChange={e => setAddress(e.target.value)}
+                ></textarea>
+              </div>
+            </div>
+            <div className="register-button-container ">
+              <button type="submit" className="btn btn-register">
+                Register
+              </button>{" "}
+            </div>
+          </form>
         </div>
       </div>
     </div>

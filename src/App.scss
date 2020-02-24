@@ -2,8 +2,10 @@
 @import "./components/landing-page/landing-page.scss";
 @import "./components/navbar/navbar.scss";
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display");
-@import "./components//login/login.scss";
-@import "./components//loader/loader.scss";
+@import "./components/login/login.scss";
+@import "./components/loader/loader.scss";
+@import "./components/input/input.scss";
+@import "./components/user/register-user.scss";
 
 body {
   min-height: 100vh;
@@ -19,4 +21,20 @@ a {
 
 .main-font {
   font-family: sans-serif;
+}
+
+.btn {
+  width: 90%;
+  background: none;
+  border: none;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  font-family: sans-serif;
+  padding: 7px;
+}
+
+.btn:hover {
+  background-color: $orange; /* Green */
+  color: white;
+  transition: 3s;
 }
