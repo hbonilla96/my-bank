@@ -24,10 +24,8 @@ export default function Login() {
         notify = toast("Welcome to Agnate bank!");
       })
       .catch(error => {
-        notify = toast("Incorrect username or password.");
+        notify = toast("Incorrect user or password.");
         setIsLoading(false);
-        setUserId("");
-        setPassword("");
       });
   }
 
@@ -36,7 +34,7 @@ export default function Login() {
       <div className="card-box">
         <div>
           <h1 className="main-font">Online bank</h1>
-          <form onSubmit={(login, notify)}>
+          <form onSubmit={login}>
             <div className="col-12">
               <label className="main-font">User name</label>
               <input
@@ -61,11 +59,7 @@ export default function Login() {
               <button className="btn" onClick={notify}>
                 Login
               </button>
-              <ToastContainer
-                autoDismiss
-                autoDismissTimeout={8000}
-                position={toast.POSITION.BOTTOM_RIGHT}
-              />
+              <ToastContainer autoDismiss autoDismissTimeout={8000} />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>
