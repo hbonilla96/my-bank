@@ -1,14 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { user } from "../../services/userService";
-<<<<<<< HEAD
-import { useFormState } from "react-use-form-state";
-
-export default function RegisterUser() {
-  const [
-    formState,
-    { userId, name, lastName, birthDate, email, address, phoneNumber, gender }
-  ] = useFormState();
-=======
+import * as EmailValidator from "email-validator";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RegisterUser() {
   const [userId, setIdentification] = useState("");
@@ -18,15 +12,38 @@ export default function RegisterUser() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
->>>>>>> parent of b369b83... email validation
+  const [gender, setGender] = useState("");
+  let notify;
 
   function registerUser(event) {
     event.preventDefault();
     user({
-      formState
+      userId,
+      name,
+      lastName,
+      birthDate,
+      email,
+      address,
+      phoneNumber,
+      gender
     }).then(res => {
       console.log(res);
+      setIdentification("");
+      setName("");
+      setLastName("");
+      setBirthDate("");
+      setEmail("");
+      setAddress("");
+      setPhoneNumber("");
+      setGender("");
     });
+  }
+
+  function onChangeEmail(email) {
+    setEmail(email);
+    if (EmailValidator.validate(email) !== true) {
+      notify = toast("Incorrect email format.");
+    }
   }
 
   return (
@@ -37,43 +54,6 @@ export default function RegisterUser() {
             <h4 className="main-font">Register</h4>
           </div>
           <form onSubmit={registerUser}>
-<<<<<<< HEAD
-            <label className="label-padding">Identification</label>
-            <input {...userId} required className="form-control border-none" />
-            <label className="label-padding">Name</label>
-            <input {...name} required className="form-control border-none" />
-            <label className="label-padding">Lastname</label>
-            <input
-              {...lastName}
-              required
-              className="form-control border-none"
-            />
-            <label className="label-padding">Birth date</label>
-            <input
-              {...birthDate}
-              required
-              type="date"
-              className="form-control border-none"
-            />
-            <label className="label-padding">Email</label>
-            <input {...email} required className="form-control border-none" />
-            <label className="label-padding">Address</label>
-            <input {...address} required className="form-control border-none" />
-            <label className="label-padding">Phone number</label>
-            <input
-              {...phoneNumber}
-              required
-              className="form-control border-none"
-            />
-            <label className="label-padding">Gender</label>
-            <select {...gender}>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="other">Other</option>
-            </select>
-            <div className="register-button-container label-padding">
-              <button className="btn btn-register">Submit</button>
-=======
             <div className="row">
               <div className="col-12 label-padding">
                 <label className="label-padding-left">Identification</label>
@@ -121,7 +101,7 @@ export default function RegisterUser() {
                   type="text"
                   className="form-control border-none"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => onChangeEmail(e.target.value)}
                 ></input>
               </div>
 
@@ -138,19 +118,32 @@ export default function RegisterUser() {
             <div className="row first-column">
               <div className="col-12 label-padding">
                 <label>Address</label>
-                <textarea
+                <input
                   type="text"
                   className="form-control border-none"
                   value={address}
                   onChange={e => setAddress(e.target.value)}
-                ></textarea>
+                ></input>
+              </div>
+              <div className="col-12 label-padding">
+                <label>Gender</label>
+                <input
+                  type="text"
+                  className="form-control border-none"
+                  value={gender}
+                  onChange={e => setGender(e.target.value)}
+                ></input>
               </div>
             </div>
-            <div className="register-button-container ">
+            <div className="register-button-container label-padding">
+              <ToastContainer
+                autoDismiss
+                autoDismissTimeout={8000}
+                position={toast.POSITION.BOTTOM_RIGHT}
+              />
               <button type="submit" className="btn btn-register">
                 Register
               </button>{" "}
->>>>>>> parent of b369b83... email validation
             </div>
           </form>
         </div>
