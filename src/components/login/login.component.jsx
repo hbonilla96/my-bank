@@ -21,9 +21,7 @@ export default function Login() {
         setUserId("");
         setPassword("");
         setIsLoading(false);
-        if (res.data.username !== "") {
-          notify = toast("Welcome to Agnate bank!");
-        }
+        notify = toast("Welcome to Agnate bank!");
       })
       .catch(error => {
         notify = toast("Incorrect username or password.");
