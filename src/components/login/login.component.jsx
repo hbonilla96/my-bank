@@ -16,13 +16,19 @@ export default function Login() {
     user({
       userId,
       password
-    }).then(res => {
-      setUserId("");
-      setPassword("");
-      setIsLoading(false);
-      notify = toast(res.data.username);
-      console.log(res.data.token);
-    });
+    })
+      .then(res => {
+        setUserId("");
+        setPassword("");
+        setIsLoading(false);
+        if (res.data.username !== "") {
+          notify = toast("Welcome to Agnate bank!");
+        }
+      })
+      .catch(error => {
+        notify = toast("Incorrect user or password.");
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -55,7 +61,7 @@ export default function Login() {
               <button className="btn" onClick={notify}>
                 Login
               </button>
-              <ToastContainer autoDismiss autoDismissTimeout={6000} />
+              <ToastContainer autoDismiss autoDismissTimeout={8000} />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>
