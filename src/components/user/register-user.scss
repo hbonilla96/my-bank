@@ -1,3 +1,5 @@
+$orange: #fe6845;
+
 .register-container {
   min-height: 100vh;
   display: flex;
@@ -37,4 +39,8 @@
 
 .select-size {
   width: 100%;
+}
+
+.required {
+  color: $orange;
 }

@@ -49,7 +49,7 @@ export default function Login() {
           </div>
           <form onSubmit={registerUser}>
             <label className="label-padding">
-              <span>*</span>Identification
+              <span className="required">*</span>Identification
             </label>
             <Input
               inputRef={raw({
@@ -66,7 +66,7 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Name
+              <span className="required">*</span>Name
             </label>
             <Input
               inputRef={raw({
@@ -83,7 +83,7 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Last name
+              <span className="required">*</span>Last name
             </label>
             <Input
               inputRef={raw({
@@ -100,7 +100,7 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Birthday
+              <span className="required">*</span>Birthday
             </label>
             <Input
               inputRef={raw({
@@ -117,7 +117,7 @@ export default function Login() {
               type={"date"}
             />
             <label className="label-padding">
-              <span>*</span>Email
+              <span className="required">*</span>Email
             </label>
             <Input
               inputRef={raw({
@@ -134,7 +134,7 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Address
+              <span className="required">*</span>Address
             </label>
             <Input
               inputRef={raw({
@@ -151,7 +151,7 @@ export default function Login() {
               type={"textarea"}
             />
             <label className="label-padding">
-              <span>*</span>Phone number
+              <span className="required">*</span>Phone number
             </label>
             <Input
               inputRef={raw({
@@ -168,7 +168,7 @@ export default function Login() {
               type={"number"}
             />
             <label className="label-padding">
-              <span>*</span>Gender
+              <span className="required">*</span>Gender
             </label>
             <InputSelect
               inputRef={raw({
