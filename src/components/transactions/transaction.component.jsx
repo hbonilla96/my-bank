@@ -4,6 +4,8 @@ import InputSelect from "../input-select/input-select.component";
 import Input from "../input/input.component";
 import { useAccounts } from "../../hooks/useAccounts";
 import { useFormState } from "react-use-form-state";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Transaction() {
   const [formState, { raw }] = useFormState();
@@ -84,7 +86,7 @@ export default function Transaction() {
   );
 
   const MyStepTracker = ({ currentStep = 0, steps = [] }) => (
-    <div>
+    <div className="current-step-label">
       <p>Current step is: {steps[currentStep]}</p>
     </div>
   );
@@ -94,18 +96,34 @@ export default function Transaction() {
     getNextStepProps,
     getPrevStepProps
   }) => (
-    <div>
-      <button type="button" {...getFirstStepProps()}>
-        &lt;&lt; First step
+    <div className="directions">
+      <button className="default-button" type="button" {...getFirstStepProps()}>
+        <FontAwesomeIcon
+          className="font-orange svg-width main-font"
+          icon={faArrowLeft}
+        />
+        First step
       </button>
-      <button type="button" {...getPrevStepProps()}>
-        &lt; Go back
+      <button className="default-button" type="button" {...getPrevStepProps()}>
+        <FontAwesomeIcon
+          className="font-orange svg-width main-font"
+          icon={faArrowLeft}
+        />
+        Go back
       </button>
-      <button type="button" {...getNextStepProps()}>
-        Next &gt;
+      <button className="default-button" type="button" {...getNextStepProps()}>
+        Next
+        <FontAwesomeIcon
+          className="font-orange svg-width main-font"
+          icon={faArrowRight}
+        />
       </button>
-      <button type="button" {...getLastStepProps()}>
-        Last step&gt;&gt;
+      <button className="default-button" type="button" {...getLastStepProps()}>
+        Last step
+        <FontAwesomeIcon
+          className="font-orange svg-width main-font"
+          icon={faArrowRight}
+        />
       </button>
     </div>
   );
@@ -121,20 +139,23 @@ export default function Transaction() {
 
   return (
     <div className="container steps-container">
-      <Wizard onStepChange={handleStepChange}>
-        <Wizard.StepTracker />
-        <Wizard.Steps>
-          <Step1 stepLabel="Destination account" />
-          <Step2 stepLabel="Origin account" />
-          <Step3 stepLabel="Confirmation"></Step3>
-        </Wizard.Steps>
-        <Wizard.StepTracker>
-          {stepTrackerProps => <MyStepTracker {...stepTrackerProps} />}
-        </Wizard.StepTracker>
-        <Wizard.Navigator>
-          {navigatorProps => <MyNavigator {...navigatorProps} />}
-        </Wizard.Navigator>
-      </Wizard>
+      <h1>Transfer</h1>
+      <div className="wizard">
+        <Wizard onStepChange={handleStepChange} className="test">
+          <Wizard.StepTracker className="test2" />
+          <Wizard.Steps className="test3">
+            <Step1 stepLabel="Destination account" />
+            <Step2 stepLabel="Origin account" />
+            <Step3 stepLabel="Confirmation"></Step3>
+          </Wizard.Steps>
+          <Wizard.StepTracker>
+            {stepTrackerProps => <MyStepTracker {...stepTrackerProps} />}
+          </Wizard.StepTracker>
+          <Wizard.Navigator>
+            {navigatorProps => <MyNavigator {...navigatorProps} />}
+          </Wizard.Navigator>
+        </Wizard>
+      </div>
     </div>
   );
 }
