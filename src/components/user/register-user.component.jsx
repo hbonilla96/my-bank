@@ -6,9 +6,10 @@ import Input from "../input/input.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomLoader from "../loader/loader.component";
+import InputSelect from "../input-select/input-select.component";
 
 export default function Login() {
-  const [formState, { raw }] = useFormState();
+  const [formState, { raw, select }] = useFormState();
   const [isLoading, setIsLoading] = useState(false);
   let notify;
 
@@ -169,7 +170,7 @@ export default function Login() {
             <label className="label-padding">
               <span>*</span>Gender
             </label>
-            <Input
+            <InputSelect
               inputRef={raw({
                 name: "gender",
                 onChange: e => e.target.value,
@@ -181,9 +182,11 @@ export default function Login() {
               })}
               isValid={formState.validity.gender}
               errorMessage={formState.errors.gender}
-              type={"text"}
-            />
-
+            >
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="other">Other</option>
+            </InputSelect>
             <div className="register-button-container label-padding">
               <ToastContainer autoClose={false} />
               <button className="btn btn-register">Registrar</button>

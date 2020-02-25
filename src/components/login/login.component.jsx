@@ -21,10 +21,14 @@ export default function Login() {
         setUserId("");
         setPassword("");
         setIsLoading(false);
-        notify = toast("Welcome to Agnate bank!");
+        toast.success("Welcome to Agnate bank", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
       })
       .catch(error => {
-        notify = toast("Incorrect user or password.");
+        toast.error("Incorrect username or password. Try again.", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
         setIsLoading(false);
       });
   }

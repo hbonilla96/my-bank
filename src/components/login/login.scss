@@ -42,3 +42,7 @@ h1 {
 *:focus {
   outline: none;
 }
+
+input:focus {
+  border-bottom-color: $orange; //*
+}

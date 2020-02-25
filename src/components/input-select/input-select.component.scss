@@ -1,0 +1,21 @@
+$orange: #fe6845;
+
+.bottom-border {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: unset;
+}
+
+.error-message {
+  color: red;
+  display: flex;
+}
+
+.size {
+  width: 100%;
+}
+
+select:focus {
+  border-bottom-color: $orange; //*
+}
