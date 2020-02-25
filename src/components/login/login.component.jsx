@@ -24,6 +24,9 @@ export default function Login() {
         toast.success("Welcome to Agnate bank", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("username", res.data.username);
+        sessionStorage.setItem("id", res.data.id.id);
       })
       .catch(error => {
         toast.error("Incorrect username or password. Try again.", {
