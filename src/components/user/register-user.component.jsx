@@ -1,49 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { user } from "../../services/userService";
+import { useFormState } from "react-use-form-state";
 import * as EmailValidator from "email-validator";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Input from "../input/input.component";
 
-export default function RegisterUser() {
-  const [userId, setIdentification] = useState("");
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
+export default function Login() {
+  const [formState, { raw }] = useFormState();
   let notify;
 
   function registerUser(event) {
     event.preventDefault();
     user({
-      userId,
-      name,
-      lastName,
-      birthDate,
-      email,
-      address,
-      phoneNumber,
-      gender
+      formState
     }).then(res => {
       console.log(res);
-      setIdentification("");
-      setName("");
-      setLastName("");
-      setBirthDate("");
-      setEmail("");
-      setAddress("");
-      setPhoneNumber("");
-      setGender("");
     });
-  }
-
-  function onChangeEmail(email) {
-    setEmail(email);
-    if (EmailValidator.validate(email) !== true) {
-      notify = toast("Incorrect email format.");
-    }
   }
 
   return (
@@ -54,96 +25,145 @@ export default function RegisterUser() {
             <h4 className="main-font">Register</h4>
           </div>
           <form onSubmit={registerUser}>
-            <div className="row">
-              <div className="col-12 label-padding">
-                <label className="label-padding-left">Identification</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={userId}
-                  onChange={e => setIdentification(e.target.value)}
-                ></input>
-              </div>
-              <div className="col-12 label-padding">
-                <label>Name</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                ></input>
-              </div>
-            </div>
-            <div className="row first-column">
-              <div className="col-12 label-padding">
-                <label>Last name</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={lastName}
-                  onChange={e => setLastName(e.target.value)}
-                ></input>
-              </div>
-              <div className="col-12 label-padding">
-                <label>Birth date</label>
-                <input
-                  type="date"
-                  className="form-control border-none"
-                  value={birthDate}
-                  onChange={e => setBirthDate(e.target.value)}
-                ></input>
-              </div>
-            </div>
-            <div className="row first-column">
-              <div className="col-12 label-padding">
-                <label>Email</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={email}
-                  onChange={e => onChangeEmail(e.target.value)}
-                ></input>
-              </div>
+            <label className="label-padding">
+              <span>*</span>Identification
+            </label>
+            <Input
+              inputRef={raw({
+                name: "userId",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.userId}
+              errorMessage={formState.errors.userId}
+              type={"text"}
+            />
+            <label className="label-padding">
+              <span>*</span>Name
+            </label>
+            <Input
+              inputRef={raw({
+                name: "name",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.name}
+              errorMessage={formState.errors.name}
+              type={"text"}
+            />
+            <label className="label-padding">
+              <span>*</span>Lastname
+            </label>
+            <Input
+              inputRef={raw({
+                name: "lastname",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.lastname}
+              errorMessage={formState.errors.lastname}
+              type={"text"}
+            />
+            <label className="label-padding">
+              <span>*</span>Birthdate
+            </label>
+            <Input
+              inputRef={raw({
+                name: "birthdate",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.birthdate}
+              errorMessage={formState.errors.birthdate}
+              type={"date"}
+            />
+            <label className="label-padding">
+              <span>*</span>Email
+            </label>
+            <Input
+              inputRef={raw({
+                name: "email",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (EmailValidator.validate(value) !== true) {
+                    return "Incorrect email format";
+                  }
+                }
+              })}
+              isValid={formState.validity.email}
+              errorMessage={formState.errors.email}
+              type={"text"}
+            />
+            <label className="label-padding">
+              <span>*</span>Addres
+            </label>
+            <Input
+              inputRef={raw({
+                name: "address",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.address}
+              errorMessage={formState.errors.address}
+              type={"textarea"}
+            />
+            <label className="label-padding">
+              <span>*</span>Phone number
+            </label>
+            <Input
+              inputRef={raw({
+                name: "phoneNumber",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.phoneNumber}
+              errorMessage={formState.errors.phoneNumber}
+              type={"number"}
+            />
+            <label className="label-padding">
+              <span>*</span>Gender
+            </label>
+            <Input
+              inputRef={raw({
+                name: "gender",
+                onChange: e => e.target.value,
+                validate: (value, values, event) => {
+                  if (value === "") {
+                    return "This field is required";
+                  }
+                }
+              })}
+              isValid={formState.validity.gender}
+              errorMessage={formState.errors.gender}
+              type={"text"}
+            />
 
-              <div className="col-12 label-padding">
-                <label>Phone number</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={phoneNumber}
-                  onChange={e => setPhoneNumber(e.target.value)}
-                ></input>
-              </div>
-            </div>
-            <div className="row first-column">
-              <div className="col-12 label-padding">
-                <label>Address</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={address}
-                  onChange={e => setAddress(e.target.value)}
-                ></input>
-              </div>
-              <div className="col-12 label-padding">
-                <label>Gender</label>
-                <input
-                  type="text"
-                  className="form-control border-none"
-                  value={gender}
-                  onChange={e => setGender(e.target.value)}
-                ></input>
-              </div>
-            </div>
-            <div className="register-button-container label-padding">
-              <ToastContainer
-                autoDismiss
-                autoDismissTimeout={8000}
-                position={toast.POSITION.BOTTOM_RIGHT}
-              />
-              <button type="submit" className="btn btn-register">
-                Register
-              </button>{" "}
+            <div className="register-button-container">
+              <button className="btn btn-register">Registrar</button>
             </div>
           </form>
         </div>
