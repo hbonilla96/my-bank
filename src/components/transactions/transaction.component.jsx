@@ -15,11 +15,10 @@ export default function Transaction() {
     <div className="container destination-container">
       <div className="card main-card">
         <div className="card-body">
-          <div>
-            {" "}
-            <span>Origin account data </span>
+          <div className="transaction-step-title">
+            <span className="bold-text ">Origin account data </span>
           </div>
-          <label>Origin account</label>
+          <label className="bold-text ">Origin account</label>
           <InputSelect>
             {accounts &&
               accounts.map(account => {
@@ -40,10 +39,10 @@ export default function Transaction() {
       <div className="card main-card">
         <div className="card-body">
           <div>
-            <div>
-              <span>Destination account data</span>
+            <div className="transaction-step-title">
+              <span className="bold-text ">Destination account data</span>
             </div>
-            <label>Id number</label>
+            <label className="bold-text">Id number</label>
             <Input
               inputRef={raw({
                 name: "userId",
@@ -144,8 +143,8 @@ export default function Transaction() {
         <Wizard onStepChange={handleStepChange} className="test">
           <Wizard.StepTracker className="test2" />
           <Wizard.Steps className="test3">
-            <Step1 stepLabel="Destination account" />
-            <Step2 stepLabel="Origin account" />
+            <Step1 stepLabel="Origin account" />
+            <Step2 stepLabel="Destination account" />
             <Step3 stepLabel="Confirmation"></Step3>
           </Wizard.Steps>
           <Wizard.StepTracker>

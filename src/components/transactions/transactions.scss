@@ -1,6 +1,7 @@
 .destination-container {
   display: flex;
   justify-content: center;
+  padding: 50px;
 }
 
 .steps-container {
@@ -28,4 +29,17 @@
 .directions {
   display: flex;
   justify-content: space-between;
+}
+
+.main-card {
+  border: none;
+}
+
+.transaction-step-title {
+  display: flex;
+  justify-content: center;
+}
+
+.bold-text {
+  font-weight: bold;
 }
