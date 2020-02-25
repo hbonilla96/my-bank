@@ -21,6 +21,11 @@ export default function CustomNavbar() {
               About us
             </Nav.Link>
           </Nav>
+          <Nav className="mr-auto">
+            <Link to="/transfers" className="titles">
+              Transfers
+            </Link>
+          </Nav>
           <Form inline>
             <Link to="/register">
               Register

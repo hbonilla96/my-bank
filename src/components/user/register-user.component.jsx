@@ -9,9 +9,8 @@ import CustomLoader from "../loader/loader.component";
 import InputSelect from "../input-select/input-select.component";
 
 export default function Login() {
-  const [formState, { raw, select }] = useFormState();
+  const [formState, { raw }] = useFormState();
   const [isLoading, setIsLoading] = useState(false);
-  let notify;
 
   function registerUser(event) {
     event.preventDefault();
