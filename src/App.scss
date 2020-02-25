@@ -38,3 +38,7 @@ a {
   color: white;
   transition: 3s;
 }
+
+*:focus {
+  outline: none;
+}

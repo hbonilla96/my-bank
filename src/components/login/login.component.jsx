@@ -59,7 +59,7 @@ export default function Login() {
               <button className="btn" onClick={notify}>
                 Login
               </button>
-              <ToastContainer />
+              <ToastContainer autoClose={false} />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>

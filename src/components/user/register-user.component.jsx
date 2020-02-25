@@ -19,13 +19,23 @@ export default function Login() {
       ...formState.values
     })
       .then(res => {
-        notify = toast("Register success");
+        toast.success(
+          "Successful registration, an email has been sent with your credentials!",
+          {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }
+        );
         setIsLoading(false);
         formState.clear();
       })
       .catch(error => {
         setIsLoading(false);
-        notify = toast("Error");
+        toast.error(
+          "There was an error trying to save your data, please try again.",
+          {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }
+        );
       });
   }
 
@@ -175,7 +185,7 @@ export default function Login() {
             />
 
             <div className="register-button-container label-padding">
-              <ToastContainer />
+              <ToastContainer autoClose={false} />
               <button className="btn btn-register">Registrar</button>
               <div>{isLoading && <CustomLoader></CustomLoader>}</div>
             </div>

@@ -1,3 +1,5 @@
+$orange: #fe6845;
+
 .bottom-border {
   border-top: none;
   border-right: none;
@@ -12,4 +14,8 @@
 
 .size {
   width: 100%;
+}
+
+input:focus {
+  border-bottom-color: $orange; //*
 }
