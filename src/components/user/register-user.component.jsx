@@ -6,12 +6,11 @@ import Input from "../input/input.component";
 
 export default function Login() {
   const [formState, { raw }] = useFormState();
-  let notify;
 
   function registerUser(event) {
     event.preventDefault();
     user({
-      formState
+      ...formState.values
     }).then(res => {
       console.log(res);
     });
@@ -60,11 +59,11 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Lastname
+              <span>*</span>Last name
             </label>
             <Input
               inputRef={raw({
-                name: "lastname",
+                name: "lastName",
                 onChange: e => e.target.value,
                 validate: (value, values, event) => {
                   if (value === "") {
@@ -72,16 +71,16 @@ export default function Login() {
                   }
                 }
               })}
-              isValid={formState.validity.lastname}
-              errorMessage={formState.errors.lastname}
+              isValid={formState.validity.lastName}
+              errorMessage={formState.errors.lastName}
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Birthdate
+              <span>*</span>Birthday
             </label>
             <Input
               inputRef={raw({
-                name: "birthdate",
+                name: "birthDate",
                 onChange: e => e.target.value,
                 validate: (value, values, event) => {
                   if (value === "") {
@@ -89,8 +88,8 @@ export default function Login() {
                   }
                 }
               })}
-              isValid={formState.validity.birthdate}
-              errorMessage={formState.errors.birthdate}
+              isValid={formState.validity.birthDate}
+              errorMessage={formState.errors.birthDate}
               type={"date"}
             />
             <label className="label-padding">
@@ -111,7 +110,7 @@ export default function Login() {
               type={"text"}
             />
             <label className="label-padding">
-              <span>*</span>Addres
+              <span>*</span>Address
             </label>
             <Input
               inputRef={raw({
@@ -162,7 +161,7 @@ export default function Login() {
               type={"text"}
             />
 
-            <div className="register-button-container">
+            <div className="register-button-container label-padding">
               <button className="btn btn-register">Registrar</button>
             </div>
           </form>
