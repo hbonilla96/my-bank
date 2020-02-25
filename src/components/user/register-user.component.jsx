@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { user } from "../../services/userService";
 import { useFormState } from "react-use-form-state";
 import * as EmailValidator from "email-validator";
 import Input from "../input/input.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CustomLoader from "../loader/loader.component";
 
 export default function Login() {
   const [formState, { raw }] = useFormState();
+  const [isLoading, setIsLoading] = useState(false);
+  let notify;
 
   function registerUser(event) {
     event.preventDefault();
+    setIsLoading(true);
     user({
       ...formState.values
-    }).then(res => {
-      console.log(res);
-    });
+    })
+      .then(res => {
+        notify = toast("Register success");
+        setIsLoading(false);
+        formState.clear();
+      })
+      .catch(error => {
+        setIsLoading(false);
+        notify = toast("Error");
+      });
   }
 
   return (
@@ -162,7 +175,9 @@ export default function Login() {
             />
 
             <div className="register-button-container label-padding">
+              <ToastContainer />
               <button className="btn btn-register">Registrar</button>
+              <div>{isLoading && <CustomLoader></CustomLoader>}</div>
             </div>
           </form>
         </div>

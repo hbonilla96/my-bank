@@ -59,7 +59,7 @@ export default function Login() {
               <button className="btn" onClick={notify}>
                 Login
               </button>
-              <ToastContainer autoDismiss autoDismissTimeout={8000} />
+              <ToastContainer />
             </div>
             <div>{isLoading && <CustomLoader></CustomLoader>}</div>
           </form>
