@@ -173,6 +173,11 @@ export default function Transaction() {
     if (currentStep === 2) {
       onNextDestinationAccount();
     }
+    if (currentStep === 4) {
+      console.log("test");
+      setIsNextDisabled(false);
+      confirmTransaction();
+    }
   }
 
   const Step1 = () => (
@@ -205,8 +210,7 @@ export default function Transaction() {
   );
 
   /* do transaction */
-  function confirmTransaction(event) {
-    event.preventDefault();
+  function confirmTransaction() {
     doTransaction({
       ...formState.values
     }).then(res => {
@@ -247,11 +251,6 @@ export default function Transaction() {
             <span>{formState.values.transferDetail}</span>
           </div>
           <ToastContainer autoClose={false} />
-          <div className="container confirm-button-container">
-            <button onClick={confirmTransaction} className="btn btn-confirm">
-              Confirm
-            </button>
-          </div>
         </div>
       </div>
     </div>
