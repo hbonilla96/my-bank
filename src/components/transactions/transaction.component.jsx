@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Step2 = ({ raw, formState }) => (
-  <div className="container destination-container">
+  <div className="container destination-container border-top-line">
     <div className="card main-card">
       <div className="card-body">
         <div>
@@ -118,7 +118,7 @@ export default function Transaction() {
   }
 
   const Step1 = () => (
-    <div className="container destination-container">
+    <div className="container destination-container border-top-line">
       <div className="card main-card">
         <div className="card-body">
           <div className="transaction-step-title">
@@ -147,7 +147,8 @@ export default function Transaction() {
   );
 
   const Step3 = () => (
-    <div>
+    <div className="border-top-line">
+      <span>{formState.values.destinationAccount}</span>
       <h1>Confirmation</h1>
     </div>
   );
@@ -160,7 +161,7 @@ export default function Transaction() {
     </div>
   );
   const MyNavigator = ({ getNextStepProps, getPrevStepProps }) => (
-    <div className="directions">
+    <div className="directions ">
       <button className="default-button" type="button" {...getPrevStepProps()}>
         <FontAwesomeIcon
           className="font-orange svg-width main-font"
@@ -189,9 +190,9 @@ export default function Transaction() {
     <div className="container steps-container">
       <h1>Transfer</h1>
       <div className="wizard">
-        <Wizard onStepChange={handleStepChange} className="test">
-          <Wizard.StepTracker className="test2" />
-          <Wizard.Steps className="test3">
+        <Wizard onStepChange={handleStepChange}>
+          <Wizard.StepTracker />
+          <Wizard.Steps>
             <Step1 stepLabel="Origin account" />
             <Step2
               stepLabel="Destination account"
