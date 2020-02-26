@@ -13,7 +13,7 @@ export const getAccounts = () =>
 
 export const getAccountsByUserName = (accountUserName, userName) => {
   const url = `http://localhost:3378/api/v1/account/${accountUserName}/${userName}`;
-  axios.get(url, {
+  return axios.get(url, {
     headers: { Authorization: "Bearer " + token }
   });
 };

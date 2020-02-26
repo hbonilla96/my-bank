@@ -13,7 +13,7 @@ export default function Transaction() {
   const [formState, { raw }] = useFormState({
     originAccount: "",
     userId: "",
-    accountHolder: ""
+    destinationAccount: ""
   });
   const [currentStep, setCurrentStep] = useState(1);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
@@ -25,7 +25,13 @@ export default function Transaction() {
     if (currentStep === 1 && formState.values.originAccount) {
       setIsNextDisabled(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (
+      currentStep === 2 &&
+      formState.values.userId &&
+      formState.values.destinationAccount
+    ) {
+      setIsNextDisabled(false);
+    }
   }, [formState.values]);
 
   useEffect(() => {
@@ -33,11 +39,14 @@ export default function Transaction() {
   }, [currentStep]);
 
   function onNextDestinationAccount() {
-    if (formState.values.userId && formState.values.accountNumber) {
+    if (formState.values.userId && formState.values.destinationAccount) {
       getAccountsByUserName(
-        formState.values.userId,
-        formState.values.accountNumber
-      ).then(res => setDestinationAccount(res.data));
+        formState.values.destinationAccount,
+        formState.values.userId
+      ).then(res => {
+        setDestinationAccount(res.data);
+        console.log(res);
+      });
     }
   }
 
