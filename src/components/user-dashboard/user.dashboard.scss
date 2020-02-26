@@ -1,0 +1,26 @@
+.dashboard-container {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-transactions {
+  border: 1px solid #f1e5e5;
+  padding: 49px;
+}
+
+.red {
+  border: 1px solid;
+  width: 100%;
+}
+
+.other {
+  border: 1px solid;
+}
+
+.th-border {
+  border: none !important;
+  font-weight: unset;
+}

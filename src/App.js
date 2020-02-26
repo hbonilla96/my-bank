@@ -5,6 +5,7 @@ import LandingPage from "./components/landing-page/landing-page.component";
 import RegisterUser from "./components/user/register-user.component";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Transaction from "./components/transactions/transaction.component";
+import UserDashboard from "./components/user-dashboard/user-dashboard.component";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/transfers">
           <Transaction></Transaction>
+        </Route>
+        <Route path="/dashboard">
+          <UserDashboard></UserDashboard>
         </Route>
       </Switch>
     </Router>
