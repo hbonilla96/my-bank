@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { getAccountsByUserName } from "../../services/accountService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Step2 = ({ raw, formState }) => (
   <div className="container destination-container">
@@ -47,6 +49,7 @@ const Step2 = ({ raw, formState }) => (
             errorMessage={formState.errors.destinationAccount}
             type={"text"}
           />
+          <ToastContainer autoClose={false} />
         </div>
       </div>
     </div>
@@ -92,6 +95,11 @@ export default function Transaction() {
       ).then(res => {
         if (res.data.length > 0) {
           setDestinationAccount(res.data);
+        } else {
+          setDestinationAccount(null);
+          toast.error("Account doesn´t exist.", {
+            position: toast.POSITION.BOTTOM_RIGHT
+          });
         }
         console.log(res);
       });
