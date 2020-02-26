@@ -9,6 +9,50 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { getAccountsByUserName } from "../../services/accountService";
 
+const Step2 = ({ raw, formState }) => (
+  <div className="container destination-container">
+    <div className="card main-card">
+      <div className="card-body">
+        <div>
+          <div className="transaction-step-title">
+            <span className="bold-text ">Destination account data</span>
+          </div>
+          <label className="bold-text">Id number</label>
+          <Input
+            inputRef={raw({
+              name: "userId",
+              onChange: e => e.target.value,
+              validate: (value, values, event) => {
+                if (value === "") {
+                  return "This field is required";
+                }
+              }
+            })}
+            isValid={formState.validity.userId}
+            errorMessage={formState.errors.userId}
+            type={"text"}
+          />
+          <label>Destination account</label>
+          <Input
+            inputRef={raw({
+              name: "destinationAccount",
+              onChange: e => e.target.value,
+              validate: (value, values, event) => {
+                if (value === "") {
+                  return "This field is required";
+                }
+              }
+            })}
+            isValid={formState.validity.destinationAccount}
+            errorMessage={formState.errors.destinationAccount}
+            type={"text"}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export default function Transaction() {
   const [formState, { raw }] = useFormState({
     originAccount: "",
@@ -28,9 +72,11 @@ export default function Transaction() {
     if (
       currentStep === 2 &&
       formState.values.userId &&
-      formState.values.destinationAccount
+      formState.values.destinationAccount &&
+      formState.values.userId.length >= 9 &&
+      formState.values.destinationAccount.length >= 22
     ) {
-      setIsNextDisabled(false);
+      onNextDestinationAccount();
     }
   }, [formState.values]);
 
@@ -44,11 +90,17 @@ export default function Transaction() {
         formState.values.destinationAccount,
         formState.values.userId
       ).then(res => {
-        setDestinationAccount(res.data);
+        if (res.data.length > 0) {
+          setDestinationAccount(res.data);
+        }
         console.log(res);
       });
     }
   }
+
+  useEffect(() => {
+    destinationAccount && setIsNextDisabled(false);
+  }, [destinationAccount]);
 
   function handleStepChange(currentStep) {
     setCurrentStep(currentStep + 1);
@@ -81,50 +133,6 @@ export default function Transaction() {
                 );
               })}
           </InputSelect>
-        </div>
-      </div>
-    </div>
-  );
-
-  const Step2 = () => (
-    <div className="container destination-container">
-      <div className="card main-card">
-        <div className="card-body">
-          <div>
-            <div className="transaction-step-title">
-              <span className="bold-text ">Destination account data</span>
-            </div>
-            <label className="bold-text">Id number</label>
-            <Input
-              inputRef={raw({
-                name: "userId",
-                onChange: e => e.target.value,
-                validate: (value, values, event) => {
-                  if (value === "") {
-                    return "This field is required";
-                  }
-                }
-              })}
-              isValid={formState.validity.userId}
-              errorMessage={formState.errors.userId}
-              type={"text"}
-            />
-            <label>Destination account</label>
-            <Input
-              inputRef={raw({
-                name: "destinationAccount",
-                onChange: e => e.target.value,
-                validate: (value, values, event) => {
-                  if (value === "") {
-                    return "This field is required";
-                  }
-                }
-              })}
-              isValid={formState.validity.destinationAccount}
-              errorMessage={formState.errors.destinationAccount}
-              type={"text"}
-            />
-          </div>
         </div>
       </div>
     </div>
@@ -177,7 +185,11 @@ export default function Transaction() {
           <Wizard.StepTracker className="test2" />
           <Wizard.Steps className="test3">
             <Step1 stepLabel="Origin account" />
-            <Step2 stepLabel="Destination account" />
+            <Step2
+              stepLabel="Destination account"
+              raw={raw}
+              formState={formState}
+            />
             <Step3 stepLabel="Confirmation"></Step3>
           </Wizard.Steps>
           <Wizard.StepTracker>
