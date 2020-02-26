@@ -226,7 +226,7 @@ export default function Transaction() {
             <p className="bold-text ">Transfer detail</p>
             <span>{formState.values.transferDetail}</span>
           </div>
-          <div className="confirm-button-container">
+          <div className="container confirm-button-container">
             <button onClick={confirmTransaction} className="btn btn-confirm">
               Confirm
             </button>

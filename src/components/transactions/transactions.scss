@@ -1,6 +1,6 @@
 .destination-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 50px;
 }
 
@@ -54,5 +54,7 @@
 
 .confirm-button-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 0;
+  padding-top: 13px;
 }
