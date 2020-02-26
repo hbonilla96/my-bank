@@ -91,7 +91,7 @@ const Step3 = ({ raw, formState }) => (
             isValid={formState.validity.currency}
             errorMessage={formState.errors.currency}
           >
-            <option value="colones">Colones</option>
+            <option value="colones">CRC colons</option>
             <option value="dolars">Dolars</option>
           </InputSelect>
           <label className="separator">Transaction detail</label>
@@ -116,14 +116,6 @@ const Step3 = ({ raw, formState }) => (
 );
 
 export default function Transaction() {
-  /* do transaction */
-  function confirmTransaction(event) {
-    event.preventDefault();
-    doTransaction({
-      ...formState.values
-    });
-  }
-
   const [formState, { raw }] = useFormState({
     originAccount: null,
     userId: "",
@@ -183,8 +175,6 @@ export default function Transaction() {
     }
   }
 
-  console.log(formState.values);
-
   const Step1 = () => (
     <div className="container destination-container border-top-line">
       <div className="card main-card">
@@ -214,6 +204,28 @@ export default function Transaction() {
     </div>
   );
 
+  /* do transaction */
+  function confirmTransaction(event) {
+    event.preventDefault();
+    doTransaction({
+      ...formState.values
+    }).then(res => {
+      console.log(res);
+      if (res.data === "Successful transfer.") {
+        toast.success("Successful transaction!", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+      } else {
+        toast.error(
+          "The account does not have enough funds to make the transfer",
+          {
+            position: toast.POSITION.BOTTOM_RIGHT
+          }
+        );
+      }
+    });
+  }
+
   const Step4 = () => (
     <div className="container destination-container border-top-line">
       <div className="card main-card">
@@ -230,9 +242,12 @@ export default function Transaction() {
             <span>{formState.values.destinationAccount}</span>
             <p className="bold-text ">Transfer amount</p>
             <span>{formState.values.transferAmount}</span>
+            <p className="bold-text ">Currency</p>
+            <span>{formState.values.currency}</span>
             <p className="bold-text ">Transfer detail</p>
             <span>{formState.values.transferDetail}</span>
           </div>
+          <ToastContainer autoClose={false} />
           <div className="container confirm-button-container">
             <button onClick={confirmTransaction} className="btn btn-confirm">
               Confirm
