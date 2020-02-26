@@ -82,6 +82,18 @@ const Step3 = ({ raw, formState }) => (
             errorMessage={formState.errors.transferAmount}
             type={"number"}
           />
+          <label className="separator">Currency</label>
+          <InputSelect
+            inputRef={raw({
+              name: "currency",
+              onChange: e => e.target.value
+            })}
+            isValid={formState.validity.currency}
+            errorMessage={formState.errors.currency}
+          >
+            <option value="colones">Colones</option>
+            <option value="dolars">Dolars</option>
+          </InputSelect>
           <label className="separator">Transaction detail</label>
           <Input
             inputRef={raw({
@@ -109,8 +121,6 @@ export default function Transaction() {
     event.preventDefault();
     doTransaction({
       ...formState.values
-    }).then(res => {
-      console.log(res);
     });
   }
 
