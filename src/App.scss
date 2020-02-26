@@ -8,6 +8,7 @@
 @import "./components/user/register-user.scss";
 @import "./components/input-select/input-select.component.scss";
 @import "./components/transactions/transactions.scss";
+@import url("https://fonts.googleapis.com/css?family=Average|Fjalla+One|Lato|Merriweather&display=swap");
 
 body {
   min-height: 100vh;
@@ -43,4 +44,12 @@ a {
 
 *:focus {
   outline: none;
+}
+
+.title-font {
+  font-family: "Fjalla One";
+}
+
+.text-font {
+  font-family: "Average";
 }

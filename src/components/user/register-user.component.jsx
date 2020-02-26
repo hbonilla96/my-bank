@@ -188,7 +188,7 @@ export default function Login() {
             </InputSelect>
             <div className="register-button-container label-padding">
               <ToastContainer autoClose={false} />
-              <button className="btn btn-register">Registrar</button>
+              <button className="btn btn-register">Register</button>
               <div>{isLoading && <CustomLoader></CustomLoader>}</div>
             </div>
           </form>

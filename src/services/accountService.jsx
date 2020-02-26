@@ -17,3 +17,10 @@ export const getAccountsByUserName = (accountUserName, userName) => {
     headers: { Authorization: "Bearer " + token }
   });
 };
+
+export const doTransaction = data => {
+  const url = "http://localhost:3378/api/v1/transaction";
+  axios.post(url, data, {
+    headers: { Authorization: "Bearer " + token }
+  });
+};

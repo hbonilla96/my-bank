@@ -7,7 +7,10 @@ import { useFormState } from "react-use-form-state";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { getAccountsByUserName } from "../../services/accountService";
+import {
+  getAccountsByUserName,
+  doTransaction
+} from "../../services/accountService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,7 +22,7 @@ const Step2 = ({ raw, formState }) => (
           <div className="transaction-step-title">
             <span className="bold-text ">Destination account data</span>
           </div>
-          <label className="bold-text">Id number</label>
+          <label>Id number</label>
           <Input
             inputRef={raw({
               name: "userId",
@@ -101,6 +104,16 @@ const Step3 = ({ raw, formState }) => (
 );
 
 export default function Transaction() {
+  /* do transaction */
+  function confirmTransaction(event) {
+    event.preventDefault();
+    doTransaction({
+      ...formState.values
+    }).then(res => {
+      console.log(res);
+    });
+  }
+
   const [formState, { raw }] = useFormState({
     originAccount: "",
     userId: "",
@@ -145,7 +158,6 @@ export default function Transaction() {
             position: toast.POSITION.BOTTOM_RIGHT
           });
         }
-        console.log(res);
       });
     }
   }
@@ -191,24 +203,35 @@ export default function Transaction() {
   );
 
   const Step4 = () => (
-    <div className="border-top-line">
-      <h1>Confirmation</h1>
-      <div className="confirm-origin-account">
-        <p>Origin account</p>
-        <span>
-          {accounts &&
-            accounts.map(account => {
-              return <span>{account.accountNumber}</span>;
-            })}
-        </span>
-      </div>
-      <div className="confirm-destination-account">
-        <p>Destination account</p>
-        <span>{formState.values.originAccount}</span>
-        <p>Transfer amount</p>
-        <span>{formState.values.transferAmount}</span>
-        <p>Transfer detail</p>
-        <span>{formState.values.transferDetail}</span>
+    <div className="container destination-container border-top-line">
+      <div className="card main-card">
+        <div className="container card-body">
+          <div>
+            <p>Confirmation</p>
+          </div>
+          <div className="confirm-origin-account">
+            <p className="bold-text ">Origin account</p>
+            <span>
+              {accounts &&
+                accounts.map(account => {
+                  return <span>{account.accountNumber}</span>;
+                })}
+            </span>
+          </div>
+          <div className="confirm-destination-account">
+            <p className="bold-text ">Destination account</p>
+            <span>{formState.values.originAccount}</span>
+            <p className="bold-text ">Transfer amount</p>
+            <span>{formState.values.transferAmount}</span>
+            <p className="bold-text ">Transfer detail</p>
+            <span>{formState.values.transferDetail}</span>
+          </div>
+          <div className="confirm-button-container">
+            <button onClick={confirmTransaction} className="btn btn-confirm">
+              Confirm
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -243,8 +266,6 @@ export default function Transaction() {
       </button>
     </div>
   );
-
-  console.log(isNextDisabled, currentStep);
 
   return (
     <div className="container steps-container">

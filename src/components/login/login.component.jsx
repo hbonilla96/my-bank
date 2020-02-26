@@ -40,7 +40,7 @@ export default function Login() {
     <div className="d-flex h-100 login-container">
       <div className="card-box">
         <div>
-          <h1 className="main-font">Online bank</h1>
+          <h1 className="main-font title-font">Online bank</h1>
           <form onSubmit={login}>
             <div className="col-12">
               <label className="main-font">User name</label>

@@ -13,7 +13,7 @@ export default function InputSelect({
         className={cx("bottom-border size", { invalid: !isValid })}
         {...inputRef}
       >
-        <option>Select an option</option>
+        <option className="text-font">Select an option</option>
         {children}
       </select>
       {errorMessage && <span className="error-message ">{errorMessage}</span>}
