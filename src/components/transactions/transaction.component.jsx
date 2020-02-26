@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Wizard from "react-simple-step-wizard";
 import InputSelect from "../input-select/input-select.component";
 import Input from "../input/input.component";
@@ -6,10 +6,47 @@ import { useAccounts } from "../../hooks/useAccounts";
 import { useFormState } from "react-use-form-state";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { getAccountsByUserName } from "../../services/accountService";
 
 export default function Transaction() {
-  const [formState, { raw }] = useFormState();
+  const [formState, { raw }] = useFormState({
+    originAccount: "",
+    userId: "",
+    accountHolder: ""
+  });
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
+
   const { accounts } = useAccounts();
+  const [destinationAccount, setDestinationAccount] = useState();
+
+  useEffect(() => {
+    if (currentStep === 1 && formState.values.originAccount) {
+      setIsNextDisabled(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formState.values]);
+
+  useEffect(() => {
+    setIsNextDisabled(true);
+  }, [currentStep]);
+
+  function onNextDestinationAccount() {
+    if (formState.values.userId && formState.values.accountNumber) {
+      getAccountsByUserName(
+        formState.values.userId,
+        formState.values.accountNumber
+      ).then(res => setDestinationAccount(res.data));
+    }
+  }
+
+  function handleStepChange(currentStep) {
+    setCurrentStep(currentStep + 1);
+    if (currentStep === 2) {
+      onNextDestinationAccount();
+    }
+  }
 
   const Step1 = () => (
     <div className="container destination-container">
@@ -19,12 +56,18 @@ export default function Transaction() {
             <span className="bold-text ">Origin account data </span>
           </div>
           <label className="bold-text ">Origin account</label>
-          <InputSelect>
+          <InputSelect
+            inputRef={raw({
+              name: "originAccount",
+              onChange: e => e.target.value
+            })}
+          >
             {accounts &&
               accounts.map(account => {
                 return (
                   <option
                     key={account.id}
+                    value={account.accountNumber}
                   >{`${account.accountNumber} ${account.accountHolder} ${account.balance}`}</option>
                 );
               })}
@@ -86,23 +129,13 @@ export default function Transaction() {
 
   const MyStepTracker = ({ currentStep = 0, steps = [] }) => (
     <div className="current-step-label">
-      <p>Current step is: {steps[currentStep]}</p>
+      <p>
+        Current step is: <span className="bold-text">{steps[currentStep]}</span>
+      </p>
     </div>
   );
-  const MyNavigator = ({
-    getFirstStepProps,
-    getLastStepProps,
-    getNextStepProps,
-    getPrevStepProps
-  }) => (
+  const MyNavigator = ({ getNextStepProps, getPrevStepProps }) => (
     <div className="directions">
-      <button className="default-button" type="button" {...getFirstStepProps()}>
-        <FontAwesomeIcon
-          className="font-orange svg-width main-font"
-          icon={faArrowLeft}
-        />
-        First step
-      </button>
       <button className="default-button" type="button" {...getPrevStepProps()}>
         <FontAwesomeIcon
           className="font-orange svg-width main-font"
@@ -110,15 +143,13 @@ export default function Transaction() {
         />
         Go back
       </button>
-      <button className="default-button" type="button" {...getNextStepProps()}>
+      <button
+        className="default-button"
+        type="button"
+        {...getNextStepProps()}
+        disabled={isNextDisabled}
+      >
         Next
-        <FontAwesomeIcon
-          className="font-orange svg-width main-font"
-          icon={faArrowRight}
-        />
-      </button>
-      <button className="default-button" type="button" {...getLastStepProps()}>
-        Last step
         <FontAwesomeIcon
           className="font-orange svg-width main-font"
           icon={faArrowRight}
@@ -127,14 +158,7 @@ export default function Transaction() {
     </div>
   );
 
-  function getAccounts(event) {
-    event.preventDefault();
-    console.log(accounts);
-  }
-
-  function handleStepChange(currentStep) {
-    console.log(currentStep);
-  }
+  console.log(isNextDisabled, currentStep);
 
   return (
     <div className="container steps-container">
