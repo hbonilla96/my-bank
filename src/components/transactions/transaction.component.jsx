@@ -56,6 +56,50 @@ const Step2 = ({ raw, formState }) => (
   </div>
 );
 
+const Step3 = ({ raw, formState }) => (
+  <div className="container destination-container border-top-line">
+    <div className="card main-card">
+      <div className="card-body">
+        <div>
+          <div className="transaction-step-title">
+            <span className="bold-text ">Transaction details</span>
+          </div>
+          <label className="bold-text">Transfer amount</label>
+          <Input
+            inputRef={raw({
+              name: "transferAmount",
+              onChange: e => e.target.value,
+              validate: (value, values, event) => {
+                if (value === "") {
+                  return "This field is required";
+                }
+              }
+            })}
+            isValid={formState.validity.transferAmount}
+            errorMessage={formState.errors.transferAmount}
+            type={"number"}
+          />
+          <label>Transaction detail</label>
+          <Input
+            inputRef={raw({
+              name: "transferDetail",
+              onChange: e => e.target.value,
+              validate: (value, values, event) => {
+                if (value === "") {
+                  return "This field is required";
+                }
+              }
+            })}
+            isValid={formState.validity.transferDetail}
+            errorMessage={formState.errors.transferDetail}
+            type={"text"}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 export default function Transaction() {
   const [formState, { raw }] = useFormState({
     originAccount: "",
@@ -137,7 +181,7 @@ export default function Transaction() {
                   <option
                     key={account.id}
                     value={account.accountNumber}
-                  >{`${account.accountNumber} ${account.accountHolder} ${account.balance}`}</option>
+                  >{`${account.accountNumber} - ${account.accountHolder} - ${account.balance} - ${account.currency}`}</option>
                 );
               })}
           </InputSelect>
@@ -146,10 +190,26 @@ export default function Transaction() {
     </div>
   );
 
-  const Step3 = () => (
+  const Step4 = () => (
     <div className="border-top-line">
-      <span>{formState.values.destinationAccount}</span>
       <h1>Confirmation</h1>
+      <div className="confirm-origin-account">
+        <p>Origin account</p>
+        <span>
+          {accounts &&
+            accounts.map(account => {
+              return <span>{account.accountNumber}</span>;
+            })}
+        </span>
+      </div>
+      <div className="confirm-destination-account">
+        <p>Destination account</p>
+        <span>{formState.values.originAccount}</span>
+        <p>Transfer amount</p>
+        <span>{formState.values.transferAmount}</span>
+        <p>Transfer detail</p>
+        <span>{formState.values.transferDetail}</span>
+      </div>
     </div>
   );
 
@@ -199,7 +259,12 @@ export default function Transaction() {
               raw={raw}
               formState={formState}
             />
-            <Step3 stepLabel="Confirmation"></Step3>
+            <Step3
+              stepLabel="Transaction details"
+              raw={raw}
+              formState={formState}
+            ></Step3>
+            <Step4 stepLabel="Confirmation"></Step4>
           </Wizard.Steps>
           <Wizard.StepTracker>
             {stepTrackerProps => <MyStepTracker {...stepTrackerProps} />}
