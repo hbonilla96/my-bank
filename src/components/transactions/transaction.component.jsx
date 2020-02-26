@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Step2 = ({ raw, formState }) => (
-  <div className="container destination-container border-top-line">
+  <div className="container destination-container-center border-top-line">
     <div className="card main-card">
       <div className="card-body">
         <div>
@@ -60,7 +60,7 @@ const Step2 = ({ raw, formState }) => (
 );
 
 const Step3 = ({ raw, formState }) => (
-  <div className="container destination-container border-top-line">
+  <div className="container destination-container-center border-top-line">
     <div className="card main-card">
       <div className="card-body">
         <div>
@@ -176,7 +176,7 @@ export default function Transaction() {
   }
 
   const Step1 = () => (
-    <div className="container destination-container border-top-line">
+    <div className="container destination-container-center border-top-line">
       <div className="card main-card">
         <div className="card-body">
           <div className="transaction-step-title">
@@ -210,7 +210,6 @@ export default function Transaction() {
     doTransaction({
       ...formState.values
     }).then(res => {
-      console.log(res);
       if (res.data === "Successful transfer.") {
         toast.success("Successful transaction!", {
           position: toast.POSITION.BOTTOM_RIGHT
