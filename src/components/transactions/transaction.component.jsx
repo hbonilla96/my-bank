@@ -22,7 +22,7 @@ const Step2 = ({ raw, formState }) => (
           <div className="transaction-step-title">
             <span className="bold-text ">Destination account data</span>
           </div>
-          <label>Id number</label>
+          <label className="separator">Id number</label>
           <Input
             inputRef={raw({
               name: "userId",
@@ -37,7 +37,7 @@ const Step2 = ({ raw, formState }) => (
             errorMessage={formState.errors.userId}
             type={"text"}
           />
-          <label>Destination account</label>
+          <label className="separator">Destination account</label>
           <Input
             inputRef={raw({
               name: "destinationAccount",
@@ -67,7 +67,7 @@ const Step3 = ({ raw, formState }) => (
           <div className="transaction-step-title">
             <span className="bold-text ">Transaction details</span>
           </div>
-          <label className="bold-text">Transfer amount</label>
+          <label className="separator">Transfer amount</label>
           <Input
             inputRef={raw({
               name: "transferAmount",
@@ -82,7 +82,7 @@ const Step3 = ({ raw, formState }) => (
             errorMessage={formState.errors.transferAmount}
             type={"number"}
           />
-          <label>Transaction detail</label>
+          <label className="separator">Transaction detail</label>
           <Input
             inputRef={raw({
               name: "transferDetail",
@@ -115,7 +115,7 @@ export default function Transaction() {
   }
 
   const [formState, { raw }] = useFormState({
-    originAccount: "",
+    originAccount: null,
     userId: "",
     destinationAccount: ""
   });
@@ -173,6 +173,8 @@ export default function Transaction() {
     }
   }
 
+  console.log(formState.values);
+
   const Step1 = () => (
     <div className="container destination-container border-top-line">
       <div className="card main-card">
@@ -180,7 +182,7 @@ export default function Transaction() {
           <div className="transaction-step-title">
             <span className="bold-text ">Origin account data </span>
           </div>
-          <label className="bold-text ">Origin account</label>
+          <label className="separator">Origin account</label>
           <InputSelect
             inputRef={raw({
               name: "originAccount",
@@ -207,20 +209,15 @@ export default function Transaction() {
       <div className="card main-card">
         <div className="container card-body">
           <div>
-            <p>Confirmation</p>
+            <p className="confirmation-title">Confirmation</p>
           </div>
           <div className="confirm-origin-account">
             <p className="bold-text ">Origin account</p>
-            <span>
-              {accounts &&
-                accounts.map(account => {
-                  return <span>{account.accountNumber}</span>;
-                })}
-            </span>
+            <span>{formState.values.originAccount}</span>
           </div>
           <div className="confirm-destination-account">
             <p className="bold-text ">Destination account</p>
-            <span>{formState.values.originAccount}</span>
+            <span>{formState.values.destinationAccount}</span>
             <p className="bold-text ">Transfer amount</p>
             <span>{formState.values.transferAmount}</span>
             <p className="bold-text ">Transfer detail</p>

@@ -10,7 +10,7 @@ export default function InputSelect({
   return (
     <div>
       <select
-        className={cx("bottom-border size", { invalid: !isValid })}
+        className={cx("bottom-border size separator", { invalid: !isValid })}
         {...inputRef}
       >
         <option className="text-font">Select an option</option>
