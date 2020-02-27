@@ -3,10 +3,42 @@ import { useTransactionHistory } from "../../hooks/useTransactionHistory";
 import { useEffect } from "react";
 import Chart from "chart.js";
 import { useExpenses } from "../../hooks/useExpenses";
+import { useState } from "react";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+
+const useStyles = makeStyles({
+  root: {
+    width: "100%"
+  },
+  container: {
+    maxHeight: 440
+  }
+});
 
 export default function UserDashboard() {
   const { transactions } = useTransactionHistory();
   const { expenses } = useExpenses();
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   useEffect(() => {
     if (expenses) {
@@ -27,12 +59,12 @@ export default function UserDashboard() {
                 expenses.june
               ],
               backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
+                "rgba(255, 99, 132)",
+                "rgba(54, 162, 235)",
+                "rgba(255, 206, 86)",
+                "rgba(75, 192, 192)",
+                "rgba(153, 102, 255)",
+                "rgba(255, 159, 64)"
               ],
               borderColor: [
                 "rgba(255, 99, 132, 1)",
@@ -47,15 +79,7 @@ export default function UserDashboard() {
           ]
         },
         options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
-              }
-            ]
-          }
+          responsive: true
         }
       });
     }
@@ -64,38 +88,55 @@ export default function UserDashboard() {
   return (
     <div className="dashboard-container">
       <div className="row">
-        <div className="column other">
-          <canvas id="myChart" width="400" height="400"></canvas>
+        <div className="column">
+          <canvas
+            className="title-font"
+            id="myChart"
+            width="400"
+            height="400"
+          ></canvas>
         </div>
-        <div className="column container-transactions ">
+        <div className="column container-transactions bs-select">
           <div className="transactions-container">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="th-border" scope="col">
-                    Account number
-                  </th>
-                  <th className="th-border" scope="col">
-                    Transfer amount
-                  </th>
-                  <th className="th-border" scope="col">
-                    Transaction date
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions &&
-                  transactions.map(transaction => {
-                    return (
-                      <tr key={transaction.id}>
-                        <td>{transaction.accountNumber}</td>
-                        <td>{transaction.transferAmount}</td>
-                        <td>{transaction.transactionDate}</td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+            <Paper className={classes.root}>
+              <TableContainer className={classes.container}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead></TableHead>
+                  <TableBody>
+                    {transactions &&
+                      transactions
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map(transaction => {
+                          return (
+                            <tr key={transaction.id}>
+                              <td className="title-font">
+                                {transaction.accountNumber}
+                              </td>
+                              <td className="title-font">
+                                {transaction.transferAmount}
+                              </td>
+                              <td className="title-font">
+                                {transaction.transactionDate}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 25, 100]}
+                component="div"
+                count={transactions && transactions.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
+            </Paper>
           </div>
         </div>
       </div>

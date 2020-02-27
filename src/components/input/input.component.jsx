@@ -6,10 +6,12 @@ export default function Input({ inputRef, isValid, errorMessage, type }) {
     <div>
       <input
         type={type}
-        className={cx("bottom-border size", { invalid: !isValid })}
+        className={cx("bottom-border size title-font", { invalid: !isValid })}
         {...inputRef}
       ></input>
-      {errorMessage && <span className="error-message ">{errorMessage}</span>}
+      {errorMessage && (
+        <span className="error-message title-font">{errorMessage}</span>
+      )}
     </div>
   );
 }

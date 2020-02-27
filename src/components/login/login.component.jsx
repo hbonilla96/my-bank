@@ -40,10 +40,10 @@ export default function Login() {
     <div className="d-flex h-100 login-container">
       <div className="card-box">
         <div>
-          <h1 className="main-font title-font">Online bank</h1>
+          <h1 className="title-font">Online bank</h1>
           <form onSubmit={login}>
             <div className="col-12">
-              <label className="main-font">User name</label>
+              <label className="title-font">User name</label>
               <input
                 type="text"
                 className="form-control border-none"
@@ -53,7 +53,7 @@ export default function Login() {
               ></input>
             </div>
             <div className="col-12 password-text">
-              <label className="main-font">Password</label>
+              <label className="title-font">Password</label>
               <input
                 type="password"
                 className="form-control border-none"
@@ -63,7 +63,7 @@ export default function Login() {
               ></input>
             </div>
             <div className="login-button">
-              <button className="btn" onClick={notify}>
+              <button className="btn title-font" onClick={notify}>
                 Login
               </button>
               <ToastContainer autoClose={false} />

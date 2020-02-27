@@ -20,9 +20,11 @@ const Step2 = ({ raw, formState }) => (
       <div className="card-body">
         <div>
           <div className="transaction-step-title">
-            <span className="bold-text ">Destination account data</span>
+            <span className="bold-text title-font">
+              Destination account data
+            </span>
           </div>
-          <label className="separator">Id number</label>
+          <label className="separator title-font">Id number</label>
           <Input
             inputRef={raw({
               name: "userId",
@@ -37,7 +39,7 @@ const Step2 = ({ raw, formState }) => (
             errorMessage={formState.errors.userId}
             type={"text"}
           />
-          <label className="separator">Destination account</label>
+          <label className="separator title-font">Destination account</label>
           <Input
             inputRef={raw({
               name: "destinationAccount",
@@ -65,9 +67,9 @@ const Step3 = ({ raw, formState }) => (
       <div className="card-body">
         <div>
           <div className="transaction-step-title">
-            <span className="bold-text ">Transaction details</span>
+            <span className="bold-text title-font">Transaction details</span>
           </div>
-          <label className="separator">Transfer amount</label>
+          <label className="separator title-font">Transfer amount</label>
           <Input
             inputRef={raw({
               name: "transferAmount",
@@ -82,7 +84,7 @@ const Step3 = ({ raw, formState }) => (
             errorMessage={formState.errors.transferAmount}
             type={"number"}
           />
-          <label className="separator">Currency</label>
+          <label className="separator title-font">Currency</label>
           <InputSelect
             inputRef={raw({
               name: "currency",
@@ -94,7 +96,7 @@ const Step3 = ({ raw, formState }) => (
             <option value="colones">CRC colons</option>
             <option value="dolars">Dolars</option>
           </InputSelect>
-          <label className="separator">Transaction detail</label>
+          <label className="separator title-font">Transaction detail</label>
           <Input
             inputRef={raw({
               name: "transferDetail",
@@ -174,7 +176,6 @@ export default function Transaction() {
       onNextDestinationAccount();
     }
     if (currentStep === 4) {
-      console.log("test");
       setIsNextDisabled(false);
       confirmTransaction();
     }
@@ -185,9 +186,9 @@ export default function Transaction() {
       <div className="card main-card">
         <div className="card-body">
           <div className="transaction-step-title">
-            <span className="bold-text ">Origin account data </span>
+            <span className="bold-text title-font">Origin account data </span>
           </div>
-          <label className="separator">Origin account</label>
+          <label className="separator title-font">Origin account</label>
           <InputSelect
             inputRef={raw({
               name: "originAccount",
@@ -234,20 +235,20 @@ export default function Transaction() {
       <div className="card main-card">
         <div className="container card-body">
           <div>
-            <p className="confirmation-title">Confirmation</p>
+            <p className="confirmation-title title-font">Confirmation</p>
           </div>
           <div className="confirm-origin-account">
-            <p className="bold-text ">Origin account</p>
+            <p className="bold-text title-font">Origin account</p>
             <span>{formState.values.originAccount}</span>
           </div>
           <div className="confirm-destination-account">
-            <p className="bold-text ">Destination account</p>
+            <p className="bold-text title-font">Destination account</p>
             <span>{formState.values.destinationAccount}</span>
-            <p className="bold-text ">Transfer amount</p>
+            <p className="bold-text title-font">Transfer amount</p>
             <span>{formState.values.transferAmount}</span>
-            <p className="bold-text ">Currency</p>
+            <p className="bold-text title-font">Currency</p>
             <span>{formState.values.currency}</span>
-            <p className="bold-text ">Transfer detail</p>
+            <p className="bold-text title-font">Transfer detail</p>
             <span>{formState.values.transferDetail}</span>
           </div>
           <ToastContainer autoClose={false} />
@@ -258,14 +259,19 @@ export default function Transaction() {
 
   const MyStepTracker = ({ currentStep = 0, steps = [] }) => (
     <div className="current-step-label">
-      <p>
-        Current step is: <span className="bold-text">{steps[currentStep]}</span>
+      <p className="title-font">
+        Current step is:{" "}
+        <span className="bold-text title-font">{steps[currentStep]}</span>
       </p>
     </div>
   );
   const MyNavigator = ({ getNextStepProps, getPrevStepProps }) => (
     <div className="directions ">
-      <button className="default-button" type="button" {...getPrevStepProps()}>
+      <button
+        className="default-button title-font"
+        type="button"
+        {...getPrevStepProps()}
+      >
         <FontAwesomeIcon
           className="font-orange svg-width main-font"
           icon={faArrowLeft}
@@ -273,7 +279,7 @@ export default function Transaction() {
         Go back
       </button>
       <button
-        className="default-button"
+        className="default-button title-font"
         type="button"
         {...getNextStepProps()}
         disabled={isNextDisabled}

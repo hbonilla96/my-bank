@@ -8,7 +8,7 @@
 @import "./components/user/register-user.scss";
 @import "./components/input-select/input-select.component.scss";
 @import "./components/transactions/transactions.scss";
-@import url("https://fonts.googleapis.com/css?family=Average|Fjalla+One|Lato|Merriweather&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import "./components/user-dashboard/user.dashboard.scss";
 
 body {
@@ -48,7 +48,7 @@ a {
 }
 
 .title-font {
-  font-family: "Fjalla One";
+  font-family: "Lato";
 }
 
 .text-font {

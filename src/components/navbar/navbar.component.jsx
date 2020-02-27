@@ -10,7 +10,7 @@ export default function CustomNavbar() {
     <div className="container">
       <Navbar expand="lg" className="nav-container">
         <Navbar.Brand className="main-font">
-          <Link to="/" className="titles">
+          <Link to="/" className="title-font titles">
             Agnate
           </Link>
         </Navbar.Brand>
@@ -22,17 +22,17 @@ export default function CustomNavbar() {
             </Nav.Link>
           </Nav>
           <Nav className="mr-auto">
-            <Link to="/transfers" className="titles">
+            <Link to="/transfers" className="title-font">
               Transfers
             </Link>
           </Nav>
           <Nav className="mr-auto">
-            <Link to="/dashboard" className="titles">
+            <Link to="/dashboard" className="title-font">
               Dashboard
             </Link>
           </Nav>
           <Form inline>
-            <Link to="/register">
+            <Link to="/register" className="title-font">
               Register
               <FontAwesomeIcon
                 className="font-orange svg-width main-font"
