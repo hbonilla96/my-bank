@@ -13,6 +13,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import InputSelect from "../input-select/input-select.component";
+import { useAccounts } from "../../hooks/useAccounts";
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +31,7 @@ export default function UserDashboard() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { accounts } = useAccounts();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -90,8 +93,25 @@ export default function UserDashboard() {
 
   return (
     <div className="dashboard-container">
+      <div className="accounts">
+        <div>
+          <span className="bold-text">Accounts</span>
+        </div>
+        <InputSelect>
+          {accounts &&
+            accounts.map(account => {
+              return (
+                <option
+                  key={account.id}
+                  value={account.accountNumber}
+                >{`${account.accountNumber} - ${account.accountHolder} - ${account.balance} - ${account.currency}`}</option>
+              );
+            })}
+        </InputSelect>
+      </div>
       <div className="row row-container ">
         <div className="column container-transactions">
+          <h1>Expenses per month</h1>
           <canvas
             className="title-font"
             id="myChart"
@@ -99,8 +119,9 @@ export default function UserDashboard() {
             height="400"
           ></canvas>
         </div>
-        <div className="column container-transactions bs-select">
+        <div className="column container-transactions bs-select border-left">
           <div className="transactions-container">
+            <h1>Transactions</h1>
             <Paper className={(classes.root, "border-shadow-none")}>
               <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">

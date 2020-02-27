@@ -14,6 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router";
+import CustomLoader from "../loader/loader.component";
 
 const Step2 = ({ raw, formState }) => (
   <div className="container destination-container-center border-top-line">
@@ -126,9 +127,9 @@ const Transaction = ({ history }) => {
   });
   const [currentStep, setCurrentStep] = useState(1);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
-
   const { accounts } = useAccounts();
   const [destinationAccount, setDestinationAccount] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (currentStep === 1 && formState.values.originAccount) {
@@ -209,10 +210,12 @@ const Transaction = ({ history }) => {
 
   /* do transaction */
   function confirmTransaction() {
+    setIsLoading(true);
     doTransaction({
       ...formState.values
     }).then(res => {
       if (res.data === "Successful transfer.") {
+        setIsLoading(false);
         toast.success("Successful transaction!", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
@@ -224,6 +227,7 @@ const Transaction = ({ history }) => {
             position: toast.POSITION.BOTTOM_RIGHT
           }
         );
+        setIsLoading(false);
       }
     });
   }
@@ -249,7 +253,7 @@ const Transaction = ({ history }) => {
             <p className="bold-text title-font">Transfer detail</p>
             <span>{formState.values.transferDetail}</span>
           </div>
-          <ToastContainer autoClose={false} />
+          <div>{isLoading && <CustomLoader></CustomLoader>}</div>
         </div>
       </div>
     </div>
@@ -297,6 +301,7 @@ const Transaction = ({ history }) => {
             type="button"
             onClick={confirmTransaction}
           >
+            <ToastContainer autoClose={false} />
             Confirm
             <FontAwesomeIcon
               className="font-orange svg-width main-font"

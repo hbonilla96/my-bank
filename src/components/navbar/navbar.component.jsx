@@ -49,10 +49,10 @@ export default function CustomNavbar() {
                   Configuration
                 </Link>
               </Nav>
-              <Nav className="mr-auto">
+              <Nav className="mr-auto nav-logout">
                 <button
                   type="button"
-                  className="default-button"
+                  className="default-button title-font"
                   onClick={loginService.logOut}
                 >
                   Log out
