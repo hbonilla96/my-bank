@@ -7,7 +7,8 @@ export default function Input({
   errorMessage,
   type,
   value,
-  readonly
+  readonly,
+  hiden
 }) {
   return (
     <div>
@@ -17,6 +18,7 @@ export default function Input({
         {...inputRef}
         defaultValue={value}
         readOnly={readonly}
+        hidden={hiden}
       ></input>
       {errorMessage && (
         <span className="error-message title-font">{errorMessage}</span>

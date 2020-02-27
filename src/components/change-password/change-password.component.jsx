@@ -14,25 +14,34 @@ export default function ChangePassword() {
   function onChangePasword(event) {
     event.preventDefault();
     setIsLoading(true);
-    changePassword({
-      ...formState.values
-    })
-      .then(res => {
-        toast.success("Pssword changed", {
-          position: toast.POSITION.BOTTOM_RIGHT
-        });
-        setIsLoading(false);
+    if (formState.values.password1 === formState.values.password) {
+      changePassword({
+        ...formState.values
       })
-      .catch(error => {
-        setIsLoading(false);
-        toast.error(
-          "There was an error trying to save your data, please try again.",
-          {
+        .then(res => {
+          toast.success("Pssword changed", {
             position: toast.POSITION.BOTTOM_RIGHT
-          }
-        );
+          });
+          setIsLoading(false);
+        })
+        .catch(error => {
+          setIsLoading(false);
+          toast.error(
+            "There was an error trying to save your data, please try again.",
+            {
+              position: toast.POSITION.BOTTOM_RIGHT
+            }
+          );
+        });
+    } else {
+      setIsLoading(false);
+      toast.error("Passwords do not match", {
+        position: toast.POSITION.BOTTOM_RIGHT
       });
+    }
   }
+
+  console.log(formState);
 
   return (
     <div className="container destination-container-center border-top-line password-container">
@@ -43,19 +52,32 @@ export default function ChangePassword() {
           </div>
           <div>
             <form onSubmit={onChangePasword}>
-              <label className="label-padding">
-                <span className="required">*</span>User
-              </label>
               <Input
-                inputRef={raw({ name: "userId" })}
+                inputRef={raw({ name: ("userId", userId) })}
                 isValid={formState.validity.userId}
                 errorMessage={formState.errors.userId}
                 type={"text"}
-                value={userId}
-                readonly={true}
+                hiden={"hidden"}
               />
               <label className="label-padding">
-                <span className="required">*</span>New Password
+                <span className="required">*</span>New password
+              </label>
+              <Input
+                inputRef={raw({
+                  name: "password1",
+                  onChange: e => e.target.value,
+                  validate: (value, values, event) => {
+                    if (value === "") {
+                      return "This field is required";
+                    }
+                  }
+                })}
+                isValid={formState.validity.password1}
+                errorMessage={formState.errors.password1}
+                type={"password"}
+              />
+              <label className="label-padding">
+                <span className="required">*</span>Confirm new password
               </label>
               <Input
                 inputRef={raw({
