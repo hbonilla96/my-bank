@@ -145,7 +145,7 @@ export default function Transaction() {
   }, [formState.values]);
 
   useEffect(() => {
-    setIsNextDisabled(true);
+    currentStep !== 4 && setIsNextDisabled(true);
   }, [currentStep]);
 
   function onNextDestinationAccount() {
@@ -170,14 +170,10 @@ export default function Transaction() {
     destinationAccount && setIsNextDisabled(false);
   }, [destinationAccount]);
 
-  function handleStepChange(currentStep) {
-    setCurrentStep(currentStep + 1);
-    if (currentStep === 2) {
+  function handleStepChange(step) {
+    setCurrentStep(step + 1);
+    if (step === 2) {
       onNextDestinationAccount();
-    }
-    if (currentStep === 4) {
-      setIsNextDisabled(false);
-      confirmTransaction();
     }
   }
 
@@ -265,33 +261,50 @@ export default function Transaction() {
       </p>
     </div>
   );
-  const MyNavigator = ({ getNextStepProps, getPrevStepProps }) => (
-    <div className="directions ">
-      <button
-        className="default-button title-font"
-        type="button"
-        {...getPrevStepProps()}
-      >
-        <FontAwesomeIcon
-          className="font-orange svg-width main-font"
-          icon={faArrowLeft}
-        />
-        Go back
-      </button>
-      <button
-        className="default-button title-font"
-        type="button"
-        {...getNextStepProps()}
-        disabled={isNextDisabled}
-      >
-        Next
-        <FontAwesomeIcon
-          className="font-orange svg-width main-font"
-          icon={faArrowRight}
-        />
-      </button>
-    </div>
-  );
+  const MyNavigator = ({ getNextStepProps, getPrevStepProps }) => {
+    return (
+      <div className="directions ">
+        <button
+          className="default-button title-font"
+          type="button"
+          {...getPrevStepProps()}
+        >
+          <FontAwesomeIcon
+            className="font-orange svg-width main-font"
+            icon={faArrowLeft}
+          />
+          Go back
+        </button>
+        {currentStep !== 4 && (
+          <button
+            className="default-button title-font"
+            type="button"
+            {...getNextStepProps()}
+            disabled={isNextDisabled}
+          >
+            Next
+            <FontAwesomeIcon
+              className="font-orange svg-width main-font"
+              icon={faArrowRight}
+            />
+          </button>
+        )}
+        {currentStep === 4 && (
+          <button
+            className="default-button title-font"
+            type="button"
+            onClick={confirmTransaction}
+          >
+            Confirm
+            <FontAwesomeIcon
+              className="font-orange svg-width main-font"
+              icon={faArrowRight}
+            />
+          </button>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="container steps-container">
@@ -313,9 +326,9 @@ export default function Transaction() {
             ></Step3>
             <Step4 stepLabel="Confirmation"></Step4>
           </Wizard.Steps>
-          <Wizard.StepTracker>
+          {/* <Wizard.StepTracker>
             {stepTrackerProps => <MyStepTracker {...stepTrackerProps} />}
-          </Wizard.StepTracker>
+          </Wizard.StepTracker> */}
           <Wizard.Navigator>
             {navigatorProps => <MyNavigator {...navigatorProps} />}
           </Wizard.Navigator>

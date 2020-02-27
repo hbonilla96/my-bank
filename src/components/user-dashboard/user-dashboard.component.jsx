@@ -111,7 +111,7 @@ export default function UserDashboard() {
                       <TableCell className="title-font">
                         Account number
                       </TableCell>
-                      <TableCell className="title-font">
+                      <TableCell className="title-font cell-padding">
                         Transfer amount
                       </TableCell>
                       <TableCell className="title-font">
