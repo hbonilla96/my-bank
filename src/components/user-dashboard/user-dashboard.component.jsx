@@ -1,10 +1,9 @@
 import React from "react";
 import { useTransactionHistory } from "../../hooks/useTransactionHistory";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Chart from "chart.js";
 import { useExpenses } from "../../hooks/useExpenses";
-import { useState } from "react";
-
+import dayjs from "dayjs";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -29,7 +28,9 @@ export default function UserDashboard() {
   const { expenses } = useExpenses();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  let date = dayjs("");
+  let date1 = dayjs().format("YYYY MM DD");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -85,10 +86,14 @@ export default function UserDashboard() {
     }
   }, [expenses]);
 
+  const setDate = date => {
+    return dayjs(date).format("DD/MM/YYYY");
+  };
+
   return (
     <div className="dashboard-container">
-      <div className="row">
-        <div className="column">
+      <div className="row row-container ">
+        <div className="column container-transactions">
           <canvas
             className="title-font"
             id="myChart"
@@ -98,10 +103,22 @@ export default function UserDashboard() {
         </div>
         <div className="column container-transactions bs-select">
           <div className="transactions-container">
-            <Paper className={classes.root}>
+            <Paper className={(classes.root, "border-shadow-none")}>
               <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
-                  <TableHead></TableHead>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className="title-font">
+                        Account number
+                      </TableCell>
+                      <TableCell className="title-font">
+                        Transfer amount
+                      </TableCell>
+                      <TableCell className="title-font">
+                        Transfer date
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
                   <TableBody>
                     {transactions &&
                       transactions
@@ -112,14 +129,14 @@ export default function UserDashboard() {
                         .map(transaction => {
                           return (
                             <tr key={transaction.id}>
-                              <td className="title-font">
+                              <td className="title-font td-padding">
                                 {transaction.accountNumber}
                               </td>
-                              <td className="title-font">
+                              <td className="title-font td-paddingth-padding">
                                 {transaction.transferAmount}
                               </td>
-                              <td className="title-font">
-                                {transaction.transactionDate}
+                              <td className="title-font td-padding">
+                                {setDate(transaction.transactionDate)}
                               </td>
                             </tr>
                           );
@@ -128,9 +145,9 @@ export default function UserDashboard() {
                 </Table>
               </TableContainer>
               <TablePagination
-                rowsPerPageOptions={[5, 25, 100]}
+                rowsPerPageOptions={[5, 10]}
                 component="div"
-                count={transactions && transactions.length}
+                count={transactions ? transactions.length : 0}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

@@ -7,7 +7,6 @@
 }
 
 .container-transactions {
-  border: 1px solid #f1e5e5;
   padding: 49px;
 }
 
@@ -23,4 +22,17 @@
 .th-border {
   border: none !important;
   font-weight: unset;
+}
+
+.td-padding {
+  padding: 20px;
+}
+
+.border-shadow-none {
+  border: none !important;
+  box-shadow: inherit !important;
+}
+
+.row-container {
+  border: 1px solid #efe9e9;
 }
