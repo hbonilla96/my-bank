@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { user } from "../../services/loginService";
+import { loginService } from "../../services/loginService";
 import CustomLoader from "../loader/loader.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setUserLoggedIn } from "../../services/loginService";
+import { withRouter } from "react-router";
 
-export default function Login() {
+const Login = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -13,10 +15,11 @@ export default function Login() {
   function login(event) {
     event.preventDefault();
     setIsLoading(true);
-    user({
-      userId,
-      password
-    })
+    loginService
+      .login({
+        userId,
+        password
+      })
       .then(res => {
         setUserId("");
         setPassword("");
@@ -27,6 +30,7 @@ export default function Login() {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("username", res.data.username);
         sessionStorage.setItem("id", res.data.id.id);
+        history.push("/dashboard");
       })
       .catch(error => {
         toast.error("Incorrect username or password. Try again.", {
@@ -74,4 +78,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default withRouter(Login);
