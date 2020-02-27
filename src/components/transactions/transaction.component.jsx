@@ -13,6 +13,7 @@ import {
 } from "../../services/accountService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { withRouter } from "react-router";
 
 const Step2 = ({ raw, formState }) => (
   <div className="container destination-container-center border-top-line">
@@ -117,7 +118,7 @@ const Step3 = ({ raw, formState }) => (
   </div>
 );
 
-export default function Transaction() {
+const Transaction = ({ history }) => {
   const [formState, { raw }] = useFormState({
     originAccount: null,
     userId: "",
@@ -215,6 +216,7 @@ export default function Transaction() {
         toast.success("Successful transaction!", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
+        history.push("/dashboard");
       } else {
         toast.error(
           "The account does not have enough funds to make the transfer",
@@ -336,4 +338,6 @@ export default function Transaction() {
       </div>
     </div>
   );
-}
+};
+
+export default withRouter(Transaction);

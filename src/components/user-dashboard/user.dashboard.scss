@@ -4,6 +4,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 93px 93px;
+}
+
+@include media-breakpoint-up(md) {
+  .dashboard-container {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 .container-transactions {
