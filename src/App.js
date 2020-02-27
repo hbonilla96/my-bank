@@ -12,6 +12,7 @@ import {
 import Transaction from "./components/transactions/transaction.component";
 import UserDashboard from "./components/user-dashboard/user-dashboard.component";
 import { loginService } from "./services/loginService";
+import ChangePassword from "./components/change-password/change-password.component";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route path="/dashboard">
               <UserDashboard></UserDashboard>
+            </Route>
+            <Route path="/configuration">
+              <ChangePassword></ChangePassword>
             </Route>
           </>
         )}

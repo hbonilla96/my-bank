@@ -3,14 +3,17 @@ import { loginService } from "../../services/loginService";
 import CustomLoader from "../loader/loader.component";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setUserLoggedIn } from "../../services/loginService";
 import { withRouter } from "react-router";
+import { useEffect } from "react";
 
 const Login = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   let notify;
+  useEffect(() => {
+    loginService.logOut();
+  }, []);
 
   function login(event) {
     event.preventDefault();
@@ -27,6 +30,7 @@ const Login = ({ history }) => {
         toast.success("Welcome to Agnate bank", {
           position: toast.POSITION.BOTTOM_RIGHT
         });
+        sessionStorage.clear();
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("username", res.data.username);
         sessionStorage.setItem("id", res.data.id.id);

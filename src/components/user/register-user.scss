@@ -7,8 +7,10 @@ $orange: #fe6845;
   justify-content: center;
 }
 
-.btn-register {
-  width: 41% !important;
+@include media-breakpoint-up(md) {
+  .btn-register {
+    width: 41% !important;
+  }
 }
 
 .register-button-container {

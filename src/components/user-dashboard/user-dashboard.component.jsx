@@ -1,6 +1,6 @@
 import React from "react";
 import { useTransactionHistory } from "../../hooks/useTransactionHistory";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Chart from "chart.js";
 import { useExpenses } from "../../hooks/useExpenses";
 import dayjs from "dayjs";
@@ -29,8 +29,6 @@ export default function UserDashboard() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  let date = dayjs("");
-  let date1 = dayjs().format("YYYY MM DD");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

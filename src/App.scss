@@ -10,6 +10,7 @@
 @import "./components/transactions/transactions.scss";
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import "./components/user-dashboard/user.dashboard.scss";
+@import "./components/change-password/change-password.scss";
 
 body {
   min-height: 100vh;
@@ -21,10 +22,6 @@ body {
 
 a {
   color: black;
-}
-
-.main-font {
-  font-family: sans-serif;
 }
 
 .btn {
@@ -40,7 +37,7 @@ a {
 .btn:hover {
   background-color: $orange;
   color: white;
-  transition: 3s;
+  transition: 1s;
 }
 
 *:focus {
@@ -53,4 +50,9 @@ a {
 
 .text-font {
   font-family: "Average";
+}
+
+.default-button {
+  border: none;
+  background-color: inherit;
 }
