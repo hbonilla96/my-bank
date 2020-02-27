@@ -7,22 +7,26 @@ import CustomLoader from "../loader/loader.component";
 import { changePassword } from "../../services/userService";
 
 export default function ChangePassword() {
-  const [formState, { raw }] = useFormState();
-  const [isLoading, setIsLoading] = useState(false);
   const userId = sessionStorage.getItem("username");
+  const [formState, { raw }] = useFormState({
+    userId: userId
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   function onChangePasword(event) {
     event.preventDefault();
     setIsLoading(true);
     if (formState.values.password1 === formState.values.password) {
       changePassword({
-        ...formState.values
+        userId: formState.values.userId,
+        password: formState.values.password
       })
         .then(res => {
-          toast.success("Pssword changed", {
+          toast.success("Password changed", {
             position: toast.POSITION.BOTTOM_RIGHT
           });
           setIsLoading(false);
+          formState.clear();
         })
         .catch(error => {
           setIsLoading(false);
@@ -41,7 +45,7 @@ export default function ChangePassword() {
     }
   }
 
-  console.log(formState);
+  console.log(formState.values);
 
   return (
     <div className="container destination-container-center border-top-line password-container">
@@ -53,13 +57,13 @@ export default function ChangePassword() {
           <div>
             <form onSubmit={onChangePasword}>
               <Input
-                inputRef={raw({ name: ("userId", userId) })}
+                inputRef={raw({ name: "userId" })}
                 isValid={formState.validity.userId}
                 errorMessage={formState.errors.userId}
                 type={"text"}
                 hiden={"hidden"}
               />
-              <label className="label-padding">
+              <label className="pass-label-padding">
                 <span className="required">*</span>New password
               </label>
               <Input
@@ -76,7 +80,7 @@ export default function ChangePassword() {
                 errorMessage={formState.errors.password1}
                 type={"password"}
               />
-              <label className="label-padding">
+              <label className="pass-label-padding">
                 <span className="required">*</span>Confirm new password
               </label>
               <Input
@@ -93,7 +97,7 @@ export default function ChangePassword() {
                 errorMessage={formState.errors.password}
                 type={"password"}
               />
-              <div className="register-button-container label-padding">
+              <div className="register-button-container pass-label-padding">
                 <ToastContainer autoClose={false} />
                 <button type="submit" className="btn btn-register">
                   Change password
