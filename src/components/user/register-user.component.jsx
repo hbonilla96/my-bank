@@ -44,7 +44,7 @@ const Login = ({ history }) => {
   function validateForm() {
     let result = true;
 
-    for (let value in formState.validity) {
+    for (let value in formState.touched) {
       result = result && formState.validity[value] && formState.touched[value];
     }
     return result;
@@ -201,7 +201,7 @@ const Login = ({ history }) => {
               <ToastContainer autoClose={false} />
               <button
                 type="submit"
-                disabled={validateForm()}
+                disabled={!validateForm()}
                 className="btn btn-register"
               >
                 Register
