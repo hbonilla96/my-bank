@@ -15,6 +15,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import InputSelect from "../input-select/input-select.component";
 import { useAccounts } from "../../hooks/useAccounts";
+import { useFormState } from "react-use-form-state";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,15 @@ export default function UserDashboard() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const { accounts } = useAccounts();
+  const [formState, { raw }] = useFormState({
+    accountNumber: ""
+  });
+
+  const accountTransactions = transactions
+    ? transactions.filter(transaction => {
+        return transaction.accountNumber === formState.values.accountNumber;
+      })
+    : [];
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -41,6 +51,12 @@ export default function UserDashboard() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  useEffect(() => {
+    accounts &&
+      accounts[0] &&
+      formState.setField("accountNumber", accounts[0].accountNumber);
+  }, [accounts]);
 
   useEffect(() => {
     if (expenses) {
@@ -91,13 +107,28 @@ export default function UserDashboard() {
     return dayjs(date).format("DD/MM/YYYY");
   };
 
+  console.log(accounts);
+
+  console.log(formState);
+
   return (
     <div className="dashboard-container">
       <div className="accounts">
         <div>
           <span className="bold-text">Accounts</span>
         </div>
-        <InputSelect>
+        <InputSelect
+          inputRef={raw({
+            name: "accountNumber",
+            onChange: e => e.target.value,
+            validate: (value, values, event) => {
+              if (value === "") {
+                return "This field is required";
+              }
+            }
+          })}
+          hideDefault
+        >
           {accounts &&
             accounts.map(account => {
               return (
@@ -136,11 +167,14 @@ export default function UserDashboard() {
                       <TableCell className="title-font">
                         Transfer date
                       </TableCell>
+                      <TableCell className="title-font">
+                        Transfer Movement
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {transactions &&
-                      transactions
+                    {accountTransactions && accountTransactions.length > 0 ? (
+                      accountTransactions
                         .slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
@@ -157,9 +191,17 @@ export default function UserDashboard() {
                               <td className="title-font td-padding">
                                 {setDate(transaction.transactionDate)}
                               </td>
+                              <td className="title-font td-padding">
+                                {transaction.transferMovement}
+                              </td>
                             </tr>
                           );
-                        })}
+                        })
+                    ) : (
+                      <tr>
+                        <td>No transactions</td>
+                      </tr>
+                    )}
                   </TableBody>
                 </Table>
               </TableContainer>

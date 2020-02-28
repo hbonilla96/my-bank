@@ -5,7 +5,8 @@ export default function InputSelect({
   inputRef,
   isValid,
   errorMessage,
-  children
+  children,
+  hideDefault = false
 }) {
   return (
     <div>
@@ -15,7 +16,9 @@ export default function InputSelect({
         })}
         {...inputRef}
       >
-        <option className="text-font title-font">Select an option</option>
+        {!hideDefault && (
+          <option className="text-font title-font">Select an option</option>
+        )}
         {children}
       </select>
       {errorMessage && <span className="error-message ">{errorMessage}</span>}

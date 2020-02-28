@@ -1,13 +1,15 @@
 import axios from "axios";
 
-const authEndpoint = "http://localhost:3378/api/v1/user";
-const passwordUrl = "http://localhost:3378/api/v1/user/update-password";
+export const user = data => {
+  const authEndpoint = "http://localhost:3378/api/v1/user";
+  const token = sessionStorage.getItem("token");
+  return axios.post(authEndpoint, data);
+};
 
-const token = sessionStorage.getItem("token");
-
-export const user = data => axios.post(authEndpoint, data);
-
-export const changePassword = data =>
-  axios.put(passwordUrl, data, {
+export const changePassword = data => {
+  const token = sessionStorage.getItem("token");
+  const passwordUrl = "http://localhost:3378/api/v1/user/update-password";
+  return axios.put(passwordUrl, data, {
     headers: { Authorization: "Bearer " + token }
   });
+};

@@ -7,8 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomLoader from "../loader/loader.component";
 import InputSelect from "../input-select/input-select.component";
+import { withRouter } from "react-router";
 
-export default function Login() {
+const Login = ({ history }) => {
   const [formState, { raw }] = useFormState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,6 +28,7 @@ export default function Login() {
         );
         setIsLoading(false);
         formState.clear();
+        history.push("/dashboard");
       })
       .catch(error => {
         setIsLoading(false);
@@ -196,4 +198,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default withRouter(Login);
