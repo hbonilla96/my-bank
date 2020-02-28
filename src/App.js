@@ -28,7 +28,7 @@ function App() {
       <CustomNavbar></CustomNavbar>
       <Switch>
         <Route path="/" exact>
-          <div className="container">
+          <div className="container landing-container">
             <LandingPage></LandingPage>
           </div>
         </Route>

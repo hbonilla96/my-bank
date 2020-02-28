@@ -160,7 +160,7 @@ const Transaction = ({ history }) => {
           setDestinationAccount(res.data);
         } else {
           setDestinationAccount(null);
-          toast.error("Account doesn´t exist.", {
+          toast.error("This account doesn´t exist.", {
             position: toast.POSITION.BOTTOM_RIGHT
           });
         }

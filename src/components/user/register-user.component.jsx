@@ -50,8 +50,6 @@ const Login = ({ history }) => {
     return result;
   }
 
-  console.log(formState);
-
   return (
     <div className="container register-container">
       <div className="card main-card">

@@ -51,3 +51,9 @@ input:focus {
   background: #fe6845 !important;
   border-radius: 18px !important;
 }
+
+@include media-breakpoint-up(md) {
+  .register-container {
+    min-height: 90vh;
+  }
+}

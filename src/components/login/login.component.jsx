@@ -5,11 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router";
 import { useEffect } from "react";
+import Input from "../input/input.component";
+import { useFormState } from "react-use-form-state";
 
 const Login = ({ history }) => {
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [formState, { raw }] = useFormState();
   let notify;
   useEffect(() => {
     loginService.logOut();
@@ -20,12 +21,10 @@ const Login = ({ history }) => {
     setIsLoading(true);
     loginService
       .login({
-        userId,
-        password
+        ...formState.values
       })
       .then(res => {
-        setUserId("");
-        setPassword("");
+        formState.clear();
         setIsLoading(false);
         toast.success("Welcome to Agnate bank", {
           position: toast.POSITION.BOTTOM_RIGHT
@@ -52,23 +51,37 @@ const Login = ({ history }) => {
           <form onSubmit={login}>
             <div className="col-12">
               <label className="title-font">User name</label>
-              <input
-                type="text"
-                className="form-control border-none"
-                required
-                value={userId}
-                onChange={e => setUserId(e.target.value)}
-              ></input>
+              <Input
+                inputRef={raw({
+                  name: "userId",
+                  onChange: e => e.target.value,
+                  validate: (value, values, event) => {
+                    if (value === "") {
+                      return "This field is required";
+                    }
+                  }
+                })}
+                isValid={formState.validity.userId}
+                errorMessage={formState.errors.userId}
+                type={"text"}
+              />
             </div>
             <div className="col-12 password-text">
               <label className="title-font">Password</label>
-              <input
-                type="password"
-                className="form-control border-none"
-                required
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              ></input>
+              <Input
+                inputRef={raw({
+                  name: "password",
+                  onChange: e => e.target.value,
+                  validate: (value, values, event) => {
+                    if (value === "") {
+                      return "This field is required";
+                    }
+                  }
+                })}
+                isValid={formState.validity.password}
+                errorMessage={formState.errors.password}
+                type={"password"}
+              />
             </div>
             <div className="login-button">
               <button className="btn title-font" onClick={notify}>
