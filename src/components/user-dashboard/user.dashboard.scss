@@ -1,3 +1,5 @@
+$orange: #fe6845;
+
 .dashboard-container {
   min-height: 90vh;
   display: flex;
@@ -61,4 +63,11 @@
 
 .accounts {
   padding: 30px;
+}
+
+.no-transactions {
+  color: $orange;
+  display: flex;
+  justify-content: center;
+  padding: 25px;
 }

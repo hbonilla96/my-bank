@@ -107,10 +107,6 @@ export default function UserDashboard() {
     return dayjs(date).format("DD/MM/YYYY");
   };
 
-  console.log(accounts);
-
-  console.log(formState);
-
   return (
     <div className="dashboard-container">
       <div className="accounts">
@@ -199,7 +195,7 @@ export default function UserDashboard() {
                         })
                     ) : (
                       <tr>
-                        <td>No transactions</td>
+                        <td className="no-transactions">No transactions</td>
                       </tr>
                     )}
                   </TableBody>
