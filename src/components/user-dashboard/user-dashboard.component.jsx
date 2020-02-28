@@ -62,7 +62,7 @@ export default function UserDashboard() {
     if (expenses) {
       var ctx = document.getElementById("myChart").getContext("2d");
       var myChart = new Chart(ctx, {
-        type: "pie",
+        type: "doughnut",
         data: {
           labels: ["January", "February", "March", "April", "May", "June"],
           datasets: [
@@ -77,12 +77,12 @@ export default function UserDashboard() {
                 expenses.june
               ],
               backgroundColor: [
-                "rgba(255, 99, 132)",
-                "rgba(54, 162, 235)",
-                "rgba(255, 206, 86)",
-                "rgba(75, 192, 192)",
-                "rgba(153, 102, 255)",
-                "rgba(255, 159, 64)"
+                "#142850",
+                "#27496d",
+                "#0c7b93",
+                "#00a8cc",
+                "#010a43",
+                "#2a7886"
               ],
               borderColor: [
                 "rgba(255, 99, 132, 1)",
@@ -208,7 +208,7 @@ export default function UserDashboard() {
               <TablePagination
                 rowsPerPageOptions={[5, 10]}
                 component="div"
-                count={transactions ? transactions.length : 0}
+                count={accountTransactions ? accountTransactions.length : 0}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
