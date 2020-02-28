@@ -52,7 +52,7 @@ export default function CustomNavbar() {
               <Nav className="mr-auto nav-logout">
                 <button
                   type="button"
-                  className="default-button title-font"
+                  className="default-button title-font hover"
                   onClick={loginService.logOut}
                 >
                   Log out

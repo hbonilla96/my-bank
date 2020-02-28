@@ -46,3 +46,8 @@ h1 {
 input:focus {
   border-bottom-color: $orange; //*
 }
+
+.Toastify__toast--error {
+  background: #fe6845 !important;
+  border-radius: 18px !important;
+}
