@@ -3,7 +3,7 @@ import axios from "axios";
 export const getAccounts = () => {
   let id = sessionStorage.getItem("id");
   let token = sessionStorage.getItem("token");
-  const authEndpoint = `http://localhost:3378/api/v1/account/${id}`;
+  const authEndpoint = `https://agnatebankapi.herokuapp.com/api/v1/account/${id}`;
 
   return axios.get(authEndpoint, {
     headers: { Authorization: "Bearer " + token }
@@ -11,7 +11,7 @@ export const getAccounts = () => {
 };
 
 export const getAccountsByUserName = (accountUserName, userName) => {
-  const url = `http://localhost:3378/api/v1/account/${accountUserName}/${userName}`;
+  const url = `https://agnatebankapi.herokuapp.com/api/v1/account/${accountUserName}/${userName}`;
   let token = sessionStorage.getItem("token");
   return axios.get(url, {
     headers: { Authorization: "Bearer " + token }
@@ -19,7 +19,7 @@ export const getAccountsByUserName = (accountUserName, userName) => {
 };
 
 export const doTransaction = data => {
-  const url = "http://localhost:3378/api/v1/transaction";
+  const url = "https://agnatebankapi.herokuapp.com/api/v1/transaction";
   let token = sessionStorage.getItem("token");
   return axios.post(url, data, {
     headers: { Authorization: "Bearer " + token }

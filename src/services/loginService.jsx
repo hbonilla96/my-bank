@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BehaviorSubject } from "rxjs";
 
-const authEndpoint = "http://localhost:3378/auth";
+const authEndpoint = "https://agnatebankapi.herokuapp.com/auth";
 
 const userData = new BehaviorSubject({ isUserLogged: false });
 
