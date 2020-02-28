@@ -41,6 +41,17 @@ const Login = ({ history }) => {
       });
   }
 
+  function validateForm() {
+    let result = true;
+
+    for (let value in formState.validity) {
+      result = result && formState.validity[value] && formState.touched[value];
+    }
+    return result;
+  }
+
+  console.log(formState);
+
   return (
     <div className="container register-container">
       <div className="card main-card">
@@ -190,7 +201,13 @@ const Login = ({ history }) => {
             </InputSelect>
             <div className="register-button-container label-padding">
               <ToastContainer autoClose={false} />
-              <button className="btn btn-register">Register</button>
+              <button
+                type="submit"
+                disabled={validateForm()}
+                className="btn btn-register"
+              >
+                Register
+              </button>
               <div>{isLoading && <CustomLoader></CustomLoader>}</div>
             </div>
           </form>
